@@ -1,0 +1,105 @@
+@import "../../colors.scss";
+.CardItem {
+  margin-right: 20px;
+
+  min-width: 620px;
+  padding: 13px;
+  background: #ffffff;
+  box-shadow: 0px 8px 24px rgba(21, 21, 21, 0.05);
+  border-radius: 10px;
+
+  display: grid;
+  grid-template-columns: 150px 1fr auto;
+  gap: 15px;
+  align-items: center;
+
+  margin-bottom: 20px;
+  .info {
+    display: flex;
+    flex-direction: column;
+    .list {
+      justify-content: space-between;
+      span {
+        color: $strongBlack;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 32px;
+      }
+      .buy {
+        padding: 8px 24px;
+      }
+    }
+    .infoDicount {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      &_SymbolPrice {
+        color: $black;
+        font-size: 14px;
+        font-weight: 500;
+      }
+      &_Date {
+        padding: 0px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #e6f3e4;
+        box-shadow: 0px 8px 24px rgba(21, 21, 21, 0.05);
+        font-weight: 500;
+        border-radius: 5px;
+        font-size: 18px;
+        line-height: 25px;
+        margin-right: 10px;
+        color: $black;
+        height: 35px;
+      }
+      &_Shops {
+        box-shadow: 0px 8px 24px rgba(21, 21, 21, 0.05);
+        display: flex;
+        align-items: center;
+
+        img:first-child {
+          width: 35px;
+          height: 35px;
+          margin-right: 10px;
+        }
+        img {
+          padding: 0;
+          width: 25px;
+          height: 25px;
+          margin-right: 10px;
+        }
+      }
+    }
+    .Title {
+      font-weight: 600;
+      height: 52px;
+      color: $black;
+      font-size: 18px;
+      margin-top: 10px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+  .imgcener {
+    text-align: center;
+    position: relative;
+    .discountImg {
+      margin: 10px;
+      background: #fdff8a;
+      border-radius: 5px;
+      font-size: 14px;
+      line-height: 16px;
+      color: #464646;
+      font-weight: 600;
+      position: absolute;
+      right: 0;
+      padding: 3px 14px;
+    }
+    img {
+      height: 150px;
+      width: 150px;
+      object-fit: contain;
+    }
+  }
+}
