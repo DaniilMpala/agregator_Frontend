@@ -1,0 +1,8 @@
+:root {
+  --primary: #fff;
+  --secondary: #F6F6F6;
+  --action: #5AAF4C;
+  --text: #2A2A2A;
+
+  --main-shadow:  0px 8px 24px rgba(21, 21, 21, 0.05);
+}
