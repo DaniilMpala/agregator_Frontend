@@ -1,0 +1,20 @@
+.inputForm {
+  background: var(--secondary);
+  display: flex;
+  align-items: center;
+  width: 620px;
+  border-radius: 10px;
+}
+.inputForm__icon {
+  padding: 16px 25px 16px 22px;
+  cursor: pointer;
+}
+.inputForm__input{
+  font-weight: 600;
+  font-size: 18px;
+  outline: none;
+  background: none;
+
+  border: none;
+}
+
