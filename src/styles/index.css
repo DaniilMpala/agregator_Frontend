@@ -10,3 +10,16 @@ body, input {
   color: var(--text);
 }
 
+/* body{
+  height: 999px;
+} */
+
+a {
+  text-decoration:none
+}
+
+button{
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
