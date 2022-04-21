@@ -25,7 +25,6 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
-      # Deploy       
-      
+      # Deploy
       - name: Deploy in server
         run: cd build && rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . root@84.252.74.161:/var/www/buildTest
