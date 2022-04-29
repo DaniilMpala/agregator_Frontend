@@ -1,0 +1,7 @@
+.product {
+    margin: 1% 5%;
+    display: grid;
+    grid-template-columns: 227px auto;
+    justify-content: start;
+    column-gap: 30px;
+}
