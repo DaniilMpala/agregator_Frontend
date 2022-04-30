@@ -1,5 +1,4 @@
-import { title } from "process";
-import React, { SyntheticEvent, useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./Card.module.css";
 import defaultImg from "./defaultImg.svg";
 import addCorzina from "./addCorzina.svg";
@@ -18,27 +17,7 @@ var month = [
   "ноября",
   "декабря",
 ];
-interface Info {
-  img: string | null;
-  title: string;
-  price: number;
-  promoPercent: number;
 
-  id: number;
-
-  valueSymbol: number;
-  Symbol: string;
-
-  shopsImg: string;
-  promoEnd: Date;
-  promoStart: Date;
-
-  productUrl?: string;
-  textDate?: string;
-}
-interface Props {
-  info: Info[];
-}
 const LoveBox: React.FC = () => {
   return (
     <svg
@@ -56,9 +35,8 @@ const LoveBox: React.FC = () => {
     </svg>
   );
 };
-const Card: React.FC<Props> = ({ info }) => {
+const Card: React.FC<PropsShops> = ({ info }) => {
   const [cardCurrent, setCardCurrent] = useState(info[0]);
-
 
   const switchCard = (index: number) => {
     setCardCurrent(info[index]);

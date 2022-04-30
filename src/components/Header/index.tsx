@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useEffect } from "react";
 import Logo from './Logo'
 import SearchInput from './SearchInput'
 import Navbar from './Navbar'
