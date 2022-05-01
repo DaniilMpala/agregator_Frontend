@@ -1,0 +1,14 @@
+.button {
+    padding: 14px 50px;
+    font-weight: 600;
+    font-size: 20px;
+    color: var(--gray);
+    box-shadow: var(--main-shadow);
+    border-radius: 6px;
+    background: var(--bgButton-gray);
+}
+
+.button:hover {
+    color: var(--action);
+    background: var(--bgButton);
+  }

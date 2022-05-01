@@ -10,6 +10,8 @@
   --not-active: #C8C8C8;
 
   --main-shadow:  0px 8px 24px rgba(21, 21, 21, 0.05);
+  --shadow-checked: 0px 0px 3px var(--action);
 
-  --bgButton: rgba(90, 175, 76, 0.15)
+  --bgButton: rgba(90, 175, 76, 0.15);
+  --bgButton-gray: #F5F6F5
 }

@@ -11,9 +11,7 @@ import {
 
 const App: React.FC = () => {
   const [state, dispatch] = useReducer(productReducer, initialState);
-  useEffect(() => {
-    console.log(product)
-  }, [state])
+
   return (
     <div className="App">
       <BrowserRouter>

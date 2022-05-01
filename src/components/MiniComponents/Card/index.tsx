@@ -35,6 +35,11 @@ const LoveBox: React.FC = () => {
     </svg>
   );
 };
+
+interface PropsShops {
+  info: API$ProductInfo[];
+} 
+
 const Card: React.FC<PropsShops> = ({ info }) => {
   const [cardCurrent, setCardCurrent] = useState(info[0]);
 

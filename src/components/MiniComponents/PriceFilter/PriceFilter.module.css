@@ -1,0 +1,26 @@
+.product__slider{
+    width: 190px;
+}
+.filter__price__title{
+    font-weight: 600;
+    font-size: 20px;
+    color:var(--text);
+    display: block;
+}
+.filter__price__Blockvol{
+    display: flex;
+    justify-content: space-between;
+}
+.filter__price__Blockvol>span{
+    font-weight: 600;
+    font-size: 16px;
+    color:var(--gray);
+    background: var(--secondary);
+    border-radius: 6px;
+    width: 80px;
+    line-height: 28px;
+    text-align: center;
+}
+.filter__price__blockFilter{
+    padding: 16px 16px 0px 16px;
+}

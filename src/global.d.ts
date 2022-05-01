@@ -1,18 +1,35 @@
 /// <reference types="react-scripts" />
-interface IProductReducerAction {
-    payload:Info[];
-    type: string
+interface IPriceSlider {
+    selected:number[];
+    static: number[]
 }
+
+// enum ProductActions {
+//  count = 'count'
+// }
+
+// ProductActions.count
+
+interface IProductReducerAction {
+    payload: Info[];
+    type: ProductActions
+}
+
 interface IProduct {
     state: Info[];
     dispatch: React.Dispatch<IProductReducerAction>;
 }
+
+
+
 interface IOptionsFilter {
-    maxPrice?: number;
-    minPrice?: number;
-    shops?:string[]
+    maxPrice: number;
+    minPrice: number;
+    shops:IArrayFilter[];
+    brand: IArrayFilter[];
 }
-interface Info {
+
+interface API$ProductInfo {
     img: string | null;
     title: string;
     price: number;
@@ -30,6 +47,7 @@ interface Info {
     productUrl?: string;
     textDate?: string;
 }
+
 interface PropsShops {
     info: Info[];
 }

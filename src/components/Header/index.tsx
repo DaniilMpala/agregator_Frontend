@@ -8,6 +8,9 @@ import Button from '../MiniComponents/Button'
 import './Header.css'
 
 const Header: React.FC = () => {
+  useEffect(() => {
+    console.log(5)
+  });
   return (
     <header>
       <Logo />
