@@ -3,7 +3,7 @@ import styles from "./Card.module.css";
 import defaultImg from "./defaultImg.svg";
 import addCorzina from "./addCorzina.svg";
 
-var month = [
+let month = [
   "января",
   "февраля",
   "марта",
