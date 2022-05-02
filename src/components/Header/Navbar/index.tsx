@@ -1,19 +1,31 @@
 import React from "react";
-import styles from "./Navbar.module.css";
-import { Link, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import classNames from "classnames";
+
+import styles from "./Navbar.module.css";
 
 const slideActive = classNames({
   [styles.slideLinkActive]: true,
   [styles.slideLink]: true,
-})
+});
+
+const classNameProp = {
+  className: ({ isActive }: { isActive: boolean }) =>
+    isActive ? slideActive : styles.slideLink,
+};
+
 const Navbar: React.FC = () => {
-  let location = useLocation().pathname;
   return (
     <div className={styles.navbar}>
-      <Link className={location === "/" ? slideActive : styles.slideLink} to="/">Главная</Link>
-      <Link className={location === "/products" ? slideActive : styles.slideLink} to="products">Продукты</Link>
-      <Link className={location === "/pharmacies" ? slideActive : styles.slideLink} to="pharmacies">Аптеки</Link>
+      <NavLink {...classNameProp} to="/">
+        Главная
+      </NavLink>
+      <NavLink {...classNameProp} to="products">
+        Продукты
+      </NavLink>
+      <NavLink {...classNameProp} to="pharmacies">
+        Аптеки
+      </NavLink>
     </div>
   );
 };

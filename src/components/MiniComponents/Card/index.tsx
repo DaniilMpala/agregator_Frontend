@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+
 import styles from "./Card.module.css";
+
 import defaultImg from "./defaultImg.svg";
+
 import addCorzina from "./addCorzina.svg";
 
-let month = [
+const month = [
   "января",
   "февраля",
   "марта",
@@ -36,25 +39,25 @@ const LoveBox: React.FC = () => {
   );
 };
 
-interface PropsShops {
-  info: API$ProductInfo[];
-} 
+interface Props {
+  productsInfos: API$ProductInfo[];
+}
 
-const Card: React.FC<PropsShops> = ({ info }) => {
-  const [cardCurrent, setCardCurrent] = useState(info[0]);
+const Card: React.FC<Props> = ({ productsInfos }) => {
+  const [cardCurrent, setCardCurrent] = useState(productsInfos[0]);
 
   const switchCard = (index: number) => {
-    setCardCurrent(info[index]);
+    setCardCurrent(productsInfos[index]);
   };
 
   return (
     <div className={styles.card}>
       <div className={styles.blockCard}>
-      <img
-            className={styles.imgItem}
-            src={cardCurrent.img ? cardCurrent.img : defaultImg}
-            alt=""
-          />
+        <img
+          className={styles.imgItem}
+          src={cardCurrent.img ? cardCurrent.img : defaultImg}
+          alt=""
+        />
 
         <span
           style={{
@@ -68,19 +71,17 @@ const Card: React.FC<PropsShops> = ({ info }) => {
         <LoveBox />
       </div>
       <div className={styles.infoShop}>
-        {info.length > 1 ? (
+        {productsInfos.length > 1 && (
           <div className={styles.listShops}>
-            {info.map((v, i) => (
+            {productsInfos.map(({ shopsImg, id }, i) => (
               <img
-                src={v.shopsImg}
-                key={i}
+                key={id}
+                src={shopsImg}
                 onClick={() => switchCard(i)}
                 alt=""
               ></img>
             ))}
           </div>
-        ) : (
-          ""
         )}
 
         <img src={cardCurrent.shopsImg} alt=""></img>

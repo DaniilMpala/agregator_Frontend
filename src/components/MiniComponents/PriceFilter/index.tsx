@@ -1,34 +1,48 @@
-import React, { useState } from "react";
-import styles from "./PriceFilter.module.css";
+import React from "react";
 import { Slider } from "@material-ui/core";
 
-interface Props {
-  valueSlider: IPriceSlider
-  setValueSlider: (v:IPriceSlider) => void
+import styles from "./PriceFilter.module.css";
+
+type Range = [start: number, end: number];
+
+export interface PriceRange {
+  selected: Range;
+  limits: Range;
 }
-const PriceFilter: React.FC<Props> = ({
-  valueSlider,
-  setValueSlider = () => {},
-}) => {
+
+interface Props {
+  rangeValue: PriceRange;
+  setRangeValue: (v: PriceRange) => void;
+}
+
+const sliderStyle: React.CSSProperties = {
+  color: "var(--action)",
+  width: "186px",
+  left: "5px",
+};
+
+const PriceFilter: React.FC<Props> = ({ rangeValue, setRangeValue }) => {
   return (
     <div className={styles.filter__price}>
       <span className={styles.filter__price__title}>Цена</span>
       <div className={styles.filter__price__blockFilter}>
         <div className={styles.filter__price__Blockvol}>
-          <span>{valueSlider.selected[0]} ₽</span>
-          <span>{valueSlider.selected[1]} ₽</span>
+          <span>{rangeValue.selected[0]} ₽</span>
+          <span>{rangeValue.selected[1]} ₽</span>
         </div>
 
         <Slider
-          max={valueSlider.static[1]}
-          min={valueSlider.static[0]}
+          min={rangeValue.limits[0]}
+          max={rangeValue.limits[1]}
           step={0.01}
-          value={valueSlider.selected}
-          onChange={(e, data) =>
-            typeof data == "object" ? setValueSlider({...valueSlider, selected:data}) : ""
-          }
+          value={rangeValue.selected}
+          onChange={(_, newRange) => {
+            if (Array.isArray(newRange)) {
+              setRangeValue({ ...rangeValue, selected: newRange as Range });
+            }
+          }}
           className={styles.product__slider}
-          style={{ color: "var(--action)", width: "186px", left: "5px" }}
+          style={sliderStyle}
         />
       </div>
     </div>

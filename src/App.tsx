@@ -1,28 +1,31 @@
-import React, { useEffect, useReducer } from "react";
-import Header from "./components/Header";
+import React, { useReducer } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Product from "./components/Product";
 
+import Header from "./components/Header";
+import Product from "./components/Product";
 import {
-  product,
+  ProductContext,
   initialState,
   productReducer,
-} from "./Contexts/productReducer";
+} from "./Contexts/Product";
 
 const App: React.FC = () => {
-  const [state, dispatch] = useReducer(productReducer, initialState);
+  const [productState, productDispatch] = useReducer(
+    productReducer,
+    initialState
+  );
 
   return (
     <div className="App">
       <BrowserRouter>
-        <product.Provider value={{ dispatch, state }}>
+        <ProductContext.Provider value={[productState, productDispatch]}>
           <Header />
           <Routes>
             <Route path="/" element={<p>Главная</p>} />
             <Route path="products" element={<Product />} />
             <Route path="pharmacies" element={<p>pharmacies</p>} />
           </Routes>
-        </product.Provider>
+        </ProductContext.Provider>
       </BrowserRouter>
     </div>
   );
