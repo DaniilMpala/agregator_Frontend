@@ -15,4 +15,4 @@ jobs:
       - name: Install deps
         run: yarn install --immutable --immutable-cache --check-cache
       - name: TS test
-        run: yarn ts
+        run: yarn tsc
