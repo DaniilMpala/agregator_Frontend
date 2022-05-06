@@ -73,12 +73,12 @@ const Card: React.FC<Props> = ({ productsInfos }) => {
       <div className={styles.infoShop}>
         {productsInfos.length > 1 && (
           <div className={styles.listShops}>
-            {productsInfos.map(({ shopsImg, id }, i) => (
+            {productsInfos.map(({ shopsImg, id, titleShops }, i) => (
               <img
                 key={id}
                 src={shopsImg}
                 onClick={() => switchCard(i)}
-                alt=""
+                alt={titleShops}
               ></img>
             ))}
           </div>
@@ -96,12 +96,12 @@ const Card: React.FC<Props> = ({ productsInfos }) => {
         </span>
 
         <span className={styles.vlueSymbol}>
-          {cardCurrent.valueSymbol} ₽ / {cardCurrent.Symbol}
+          {cardCurrent.valueSymbol} ₽ / {cardCurrent.symbol}
         </span>
       </div>
-      <p>{cardCurrent.title}</p>
+      <p>{cardCurrent.description}</p>
       <div className={styles.priceItem}>
-        <span>{cardCurrent.price} ₽</span>
+        <span>{cardCurrent.value} ₽</span>
         <img src={addCorzina} alt="" />
       </div>
     </div>

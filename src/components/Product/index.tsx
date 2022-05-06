@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import * as API from "../../utils/api";
 import { useAsyncEffect } from "../../hooks";
@@ -9,63 +9,8 @@ import GrayButton from "../MiniComponents/GrayButton";
 import SocialNetwork from "../MiniComponents/SocialNetwork";
 import styles from "./Product.module.css";
 import MiniSearchInput from "../MiniComponents/MiniSearchInput";
-
-// TODO: Сделать desc на беке (+сервис)
-
-const mockProductInfo: API$ProductInfo[] = [
-  {
-    img: null,
-    title: "Конфеты КОРКУНОВ Ассорти из молочного шоколада, Россия, 192 г",
-    price: 1223.32,
-    promoPercent: 123.1,
-
-    id: 272772727277272,
-
-    valueSymbol: 123.12,
-    Symbol: "кг",
-
-    shopsImg: "lenta.png",
-    promoEnd: new Date("9999-12-31"),
-    promoStart: new Date("2022-04-08"),
-
-    productUrl: "String",
-  },
-  {
-    img: "	https://lenta.gcdn.co/globalassets/1/-/50/79/87/241641_3.png?preset=thumbnaillossy-webp",
-    title: "Второй продукт",
-    price: 123.32,
-    promoPercent: 1.1,
-
-    id: 272772727277272,
-
-    valueSymbol: 123.12,
-    Symbol: "л",
-
-    shopsImg: "dixy.png",
-    promoEnd: new Date("9999-12-31"),
-    promoStart: new Date("2022-04-08"),
-
-    productUrl: "String",
-  },
-
-  {
-    img: "	https://lenta.gcdn.co/globalassets/1/-/50/79/87/241641_3.png?preset=thumbnaillossy-webp",
-    title: "Второй продукт",
-    price: 123.32,
-    promoPercent: 1.1,
-
-    id: 272772727277272,
-
-    valueSymbol: 123.12,
-    Symbol: "л",
-
-    shopsImg: "dixy.png",
-    promoEnd: new Date("9999-12-31"),
-    promoStart: new Date("2022-04-08"),
-
-    productUrl: "String",
-  },
-];
+import { getUrlParams, replaceUri } from "../../global/functions";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const filterMapper = ({ v, desc }: API$Filter): Option =>
   desc
@@ -84,6 +29,7 @@ const filterMapper = ({ v, desc }: API$Filter): Option =>
       };
 
 const Product: React.FC = () => {
+  const [products, setProduct] = useState<API$ReceivedProductsInfoList>({});
   const [marketFilters, setMarketFilters] = useState<Option[]>([]);
   const [brandFilters, setBrandFilters] = useState<Option[]>([]);
   const [TextSearchBrandFilters, setTextSearchBrandFilters] =
@@ -93,7 +39,28 @@ const Product: React.FC = () => {
     limits: [0, 100],
   });
   // (document.getElementById("serachInputHeader") as HTMLInputElement)?.value)
+
+  useEffect(() => {
+    let marketSelected = marketFilters
+      .filter((v) => v.checked)
+      .map((v) => v.value);
+    replaceUri("shops", marketSelected.join(","));
+  }, [marketFilters]);
+
+  useEffect(() => {
+    let brandSelected = brandFilters
+      .filter((v) => v.checked)
+      .map((v) => v.value);
+    replaceUri("brand", brandSelected.join(","));
+  }, [brandFilters]);
+
+  useEffect(() => {
+    replaceUri("price", rangeValue.selected.join(","));
+  }, [rangeValue]);
+
   useAsyncEffect(async () => {
+    loadItem(); //Загрузка всех айтемов
+
     const { shops, brand, minPrice, maxPrice } = await API.getFilters();
 
     setMarketFilters(shops.map(filterMapper));
@@ -104,28 +71,19 @@ const Product: React.FC = () => {
     });
   }, []);
 
-  const loadItem = async () => {
-    let requestOption: API$FilterRequestLoadItem = {};
-    let searchText = (
-      document.getElementById("serachInputHeader") as HTMLInputElement
-    ).value;
-    let brandSelected = brandFilters
-      .filter((v) => v.checked)
-      .map((v) => v.value);
-    let marketSelected = marketFilters
-      .filter((v) => v.checked)
-      .map((v) => v.value);
+  const loadMoreItem = () => {
+    
+  };
 
-    if (searchText) requestOption["search"] = searchText;
-    if (brandSelected.length > 0) requestOption["brand"] = brandSelected;
-    if (marketSelected.length > 0) requestOption["shops"] = marketSelected;
+  const loadItem = async () => {
     // if (sortedBy) requestOption["sortedBy"] = sortedBy
     // if (skip) requestOption["skip"] = skip
     // if (category) requestOption["category"] = category
-
-    requestOption["price"] = rangeValue.selected;
+    let requestOption: API$FilterRequestLoadItem = getUrlParams();
 
     const Items = await API.loadItem(requestOption);
+
+    setProduct(Items);
     console.log(Items);
   };
 
@@ -166,7 +124,25 @@ const Product: React.FC = () => {
         <SocialNetwork vertical={false} className={styles.social} />
       </div>
       <div>
-        <Card productsInfos={mockProductInfo} />
+        {Object.keys(products).map((v, i) => (
+          <div className={styles.items_block}>
+            <h2 className={styles.title_shop}>{v}</h2>
+            <InfiniteScroll
+              className={styles.items}
+              dataLength={products[v].length}
+              next={loadMoreItem}
+              hasMore={true}
+              loader={<h4>Loading...</h4>}
+            >
+              {products[v].map((item: API$ProductInfo[]) => (
+                <>
+                  <Card productsInfos={item} />
+                </>
+              ))}
+            </InfiniteScroll>
+          </div>
+        ))}
+        
       </div>
     </div>
   );

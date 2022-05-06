@@ -38,6 +38,7 @@ const OptionsList: React.FC<Props> = ({
       );
 
       setOptions(newOptions);
+      
     },
     [options, setOptions]
   );

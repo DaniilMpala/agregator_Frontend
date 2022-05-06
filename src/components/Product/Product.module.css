@@ -5,12 +5,31 @@
     justify-content: start;
     column-gap: 30px;
 }
-.button__apply{
+
+.button__apply {
     margin: 30px 0px;
 }
-.social{
+
+.social {
     margin-top: 50px;
 }
-.mini__search__input{
+
+.mini__search__input {
     margin: 0px 10px 10px 25px;
+}
+
+.title_shop {
+    font-weight: 600;
+    font-size: 32px;
+    color: var(--text);
+    margin: 0px 0px 8px 0px
+}
+.items_block{
+    height: 500px;
+    overflow-y: auto;
+}
+.items{
+    display: flex;
+    flex-wrap: wrap;
+
 }

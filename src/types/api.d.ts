@@ -1,20 +1,30 @@
+
+type API$ListItems = Record<API$ProductInfo[]>
+type API$ReceivedProductsInfoList = Record<string, API$ListItems[]>
+// type API$ReceivedProductsInfo = Record<number, API$ProductInfo[]>
+
 interface API$ProductInfo {
   img: string | null;
-  title: string;
-  price: number;
+  description: string;
+  value: number;
   promoPercent: number;
 
   id: number;
 
   valueSymbol: number;
-  Symbol: string;
+  symbol: string;
 
   shopsImg: string;
+  titleShops: string 
   promoEnd: Date;
   promoStart: Date;
 
   productUrl?: string;
   textDate?: string;
+  availabilityShop?: null | string
+  oldValue?: null | number
+  stockValue?: null | string
+
 }
 
 interface API$Filter {
@@ -28,7 +38,7 @@ interface API$FiltersData {
   minPrice: number;
   maxPrice: number;
 }
-interface API$FilterRequestLoadItem{
+interface API$FilterRequestLoadItem {
   search?: string
   category?: string[]
   skip?: number
