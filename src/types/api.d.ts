@@ -28,3 +28,12 @@ interface API$FiltersData {
   minPrice: number;
   maxPrice: number;
 }
+interface API$FilterRequestLoadItem{
+  search?: string
+  category?: string[]
+  skip?: number
+  shops?: string[]
+  sortedBy?: number
+  brand?: string[]
+  price?: number[]
+}

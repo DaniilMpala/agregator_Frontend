@@ -2,8 +2,7 @@
     margin-top: 25px;
 }
 .list {
-    max-height: 200px;
-    overflow-y: auto;
+    min-height: 150px;
     overflow-x: hidden;
 }
 

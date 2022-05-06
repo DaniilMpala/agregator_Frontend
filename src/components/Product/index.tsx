@@ -8,6 +8,7 @@ import OptionsList, { Option } from "../MiniComponents/OptionsList";
 import GrayButton from "../MiniComponents/GrayButton";
 import SocialNetwork from "../MiniComponents/SocialNetwork";
 import styles from "./Product.module.css";
+import MiniSearchInput from "../MiniComponents/MiniSearchInput";
 
 // TODO: Сделать desc на беке (+сервис)
 
@@ -67,28 +68,31 @@ const mockProductInfo: API$ProductInfo[] = [
 ];
 
 const filterMapper = ({ v, desc }: API$Filter): Option =>
-  // (?) Наверное когда-то поле checked тоже будет приходить
   desc
     ? {
         value: v,
         label: v,
         checked: false,
         description: desc,
+        visible: true,
       }
     : {
         value: v,
         label: v,
         checked: false,
+        visible: true,
       };
 
 const Product: React.FC = () => {
   const [marketFilters, setMarketFilters] = useState<Option[]>([]);
   const [brandFilters, setBrandFilters] = useState<Option[]>([]);
+  const [TextSearchBrandFilters, setTextSearchBrandFilters] =
+    useState<string>();
   const [rangeValue, setRangeValue] = useState<PriceRange>({
     selected: [0, 100],
     limits: [0, 100],
   });
-
+  // (document.getElementById("serachInputHeader") as HTMLInputElement)?.value)
   useAsyncEffect(async () => {
     const { shops, brand, minPrice, maxPrice } = await API.getFilters();
 
@@ -99,6 +103,42 @@ const Product: React.FC = () => {
       limits: [minPrice, maxPrice],
     });
   }, []);
+
+  const loadItem = async () => {
+    let requestOption: API$FilterRequestLoadItem = {};
+    let searchText = (
+      document.getElementById("serachInputHeader") as HTMLInputElement
+    ).value;
+    let brandSelected = brandFilters
+      .filter((v) => v.checked)
+      .map((v) => v.value);
+    let marketSelected = marketFilters
+      .filter((v) => v.checked)
+      .map((v) => v.value);
+
+    if (searchText) requestOption["search"] = searchText;
+    if (brandSelected.length > 0) requestOption["brand"] = brandSelected;
+    if (marketSelected.length > 0) requestOption["shops"] = marketSelected;
+    // if (sortedBy) requestOption["sortedBy"] = sortedBy
+    // if (skip) requestOption["skip"] = skip
+    // if (category) requestOption["category"] = category
+
+    requestOption["price"] = rangeValue.selected;
+
+    const Items = await API.loadItem(requestOption);
+    console.log(Items);
+  };
+
+  const updateOptionsBrandFilter = (searchText: string) => {
+    setBrandFilters([
+      ...brandFilters.map((item: Option) =>
+        ~item.label.toLowerCase().indexOf(searchText.toLowerCase())
+          ? { ...item, visible: true }
+          : { ...item, visible: false }
+      ),
+    ]);
+    setTextSearchBrandFilters(searchText);
+  };
 
   return (
     <div className={styles.product}>
@@ -113,8 +153,16 @@ const Product: React.FC = () => {
           title="Выбор производителя"
           options={brandFilters}
           setOptions={setBrandFilters}
-        />
-        <GrayButton className={styles.button__apply}>Применить</GrayButton>
+        >
+          <MiniSearchInput
+            className={styles.mini__search__input}
+            setTextSearch={updateOptionsBrandFilter}
+            textSearch={TextSearchBrandFilters}
+          />
+        </OptionsList>
+        <GrayButton onClick={loadItem} className={styles.button__apply}>
+          Применить
+        </GrayButton>
         <SocialNetwork vertical={false} className={styles.social} />
       </div>
       <div>
