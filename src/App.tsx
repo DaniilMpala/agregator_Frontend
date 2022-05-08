@@ -19,12 +19,12 @@ const App: React.FC = () => {
     <div className="App">
       <BrowserRouter>
         {/* <ProductContext.Provider value={[productState, productDispatch]}> */}
-          <Header />
-          <Routes>
-            <Route path="/" element={<p>Главная</p>} />
-            <Route path="products" element={<Product />} />
-            <Route path="pharmacies" element={<p>pharmacies</p>} />
-          </Routes>
+        <Header />
+        <Routes>
+          <Route path="/" element={<p>Главная</p>} />
+          <Route path="products" element={<Product />} />
+          <Route path="pharmacies" element={<p>pharmacies</p>} />
+        </Routes>
         {/* </ProductContext.Provider> */}
       </BrowserRouter>
     </div>

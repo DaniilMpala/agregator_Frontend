@@ -72,7 +72,7 @@ const Product: React.FC = () => {
   }, []);
 
   const loadMoreItem = () => {
-    
+    console.log("Load more");
   };
 
   const loadItem = async () => {
@@ -125,13 +125,14 @@ const Product: React.FC = () => {
       </div>
       <div>
         {Object.keys(products).map((v, i) => (
-          <div className={styles.items_block}>
-            <h2 className={styles.title_shop}>{v}</h2>
+          <div className={styles.items}>
+            <h2 className={styles.items__title}>{v}</h2>
             <InfiniteScroll
-              className={styles.items}
+              className={styles.items__list}
               dataLength={products[v].length}
               next={loadMoreItem}
               hasMore={true}
+              height="500px"
               loader={<h4>Loading...</h4>}
             >
               {products[v].map((item: API$ProductInfo[]) => (
@@ -142,7 +143,6 @@ const Product: React.FC = () => {
             </InfiniteScroll>
           </div>
         ))}
-        
       </div>
     </div>
   );
