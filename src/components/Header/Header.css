@@ -1,0 +1,10 @@
+header {
+    display: grid;
+    grid-template-columns: max-content auto auto 210px;
+    column-gap: 40px;
+    padding: 0px 26px;
+    align-items: center;
+    box-shadow: var(--main-shadow);
+
+    height: 90px;
+}

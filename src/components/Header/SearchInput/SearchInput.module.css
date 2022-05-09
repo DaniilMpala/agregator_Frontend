@@ -4,12 +4,17 @@
   align-items: center;
   width: 620px;
   border-radius: 10px;
+
+  /* grid */
+  justify-self: left;
 }
 .inputForm__icon {
   padding: 16px 25px 16px 22px;
   cursor: pointer;
 }
 .inputForm__input{
+  color: var(--text);
+
   font-weight: 600;
   font-size: 18px;
   outline: none;

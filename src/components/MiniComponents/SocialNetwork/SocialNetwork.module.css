@@ -1,0 +1,11 @@
+.block{
+    display: flex;
+}
+.block__vertical{
+    display: flex;
+    flex-direction: column;
+}
+.block>a, .block__vertical>a{
+    margin-right: 12px;
+    margin-bottom: 12px;
+}

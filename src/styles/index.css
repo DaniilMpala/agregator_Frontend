@@ -1,12 +1,85 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
 @import url('./colors.css');  
 
-body, input {
+*{
+  box-sizing: border-box;
+}
+
+body, input, button {
   margin: 0;
   font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 14px;
   color: var(--text);
+  outline: none;
+  background: none;
+
+  border: none;
 }
 
+/* body{
+  height: 999px;
+} */
+
+a {
+  text-decoration:none
+}
+
+button{
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+input[type=checkbox] {
+  position: relative;
+  cursor: pointer;
+}
+input[type=checkbox] {
+  width: 16px;
+  height: 16px;
+
+}
+input[type=checkbox]::before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 0;
+  left: 0;
+  border-radius: 2px;
+  background-color: var(--secondary);
+}
+input[type=checkbox]:checked::before {
+  background-color: var(--action);
+  box-shadow: var(--shadow-checked);
+  background-position: center center;
+  background-image: url("../../public/Vector.svg");
+  background-repeat: no-repeat;
+}
+
+::-webkit-scrollbar {
+  height: 4px;
+  width: 5px;
+  cursor: pointer;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 3px;
+  background-color: var(--secondary);
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--action);
+  border-radius: 3px;
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--action); 
+}

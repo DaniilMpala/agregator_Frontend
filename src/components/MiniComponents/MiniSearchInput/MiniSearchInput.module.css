@@ -1,0 +1,19 @@
+.input {
+  border-radius: 6px;
+  background-color: var(--secondary);
+  position: relative;
+  /* width: -webkit-fill-available; */
+  padding: 5px 0px 5px 30px;
+  color: var(--text);
+
+  font-weight: 600;
+}
+
+.input::after {
+  position: absolute;
+  left: 15px;
+  content: '0';
+  color: transparent;
+  background: url(/src/components/MiniComponents/MiniSearchInput/iconSerach.svg) no-repeat;
+  width: 14px;
+}
