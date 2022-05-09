@@ -2,7 +2,7 @@
   --primary: #fff;
   --secondary: #F6F6F6;
   --action: #5AAF4C;
-  --text: #2A2A2A;
+  --text: #464646;
   --gray: #737373;
 
   --red: #FF5959;
@@ -12,6 +12,6 @@
   --main-shadow:  0px 8px 24px rgba(21, 21, 21, 0.05);
   --shadow-checked: 0px 0px 3px var(--action);
 
-  --bgButton: rgba(90, 175, 76, 0.15);
+  --bgButton: #E6F3E4;
   --bgButton-gray: #F5F6F5
 }

@@ -12,6 +12,10 @@ body, input, button {
   -moz-osx-font-smoothing: grayscale;
   font-size: 14px;
   color: var(--text);
+  outline: none;
+  background: none;
+
+  border: none;
 }
 
 /* body{
@@ -57,7 +61,8 @@ input[type=checkbox]:checked::before {
 }
 
 ::-webkit-scrollbar {
-  width: 7px;
+  height: 4px;
+  width: 5px;
   cursor: pointer;
 }
 

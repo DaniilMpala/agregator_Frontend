@@ -25,12 +25,20 @@
   font-weight: 600;
   font-size: 32px;
   color: var(--text);
-  margin: 0px 0px 8px 0px;
+  margin: 34px 0px 8px 0px;
 }
 
 .items__list {
-  max-height: 500px;
+  padding: 0 10px;
   overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
+  /* box-shadow: inset var(--main-shadow); */
+}
+.category__filters{
+  width: 200px;
+  padding: 10px 10px;
+  font-weight: 600;
+  font-size: 16px;
+  height: 42px;
 }

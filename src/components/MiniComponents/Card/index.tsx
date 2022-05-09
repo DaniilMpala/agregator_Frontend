@@ -59,15 +59,17 @@ const Card: React.FC<Props> = ({ productsInfos }) => {
           alt=""
         />
 
-        <span
-          style={{
-            backgroundColor:
-              cardCurrent.promoPercent < 21 ? "#ffb122" : "#FF5959",
-          }}
-          className={styles.discount}
-        >
-          -{cardCurrent.promoPercent}%
-        </span>
+        {Boolean(cardCurrent.promoPercent) && (
+          <span
+            style={{
+              backgroundColor:
+                cardCurrent.promoPercent < 21 ? "#ffb122" : "#FF5959",
+            }}
+            className={styles.discount}
+          >
+            -{cardCurrent.promoPercent}%
+          </span>
+        )}
         <LoveBox />
       </div>
       <div className={styles.infoShop}>
@@ -99,7 +101,7 @@ const Card: React.FC<Props> = ({ productsInfos }) => {
           {cardCurrent.valueSymbol} ₽ / {cardCurrent.symbol}
         </span>
       </div>
-      <p>{cardCurrent.description}</p>
+      <p className={styles.title}>{cardCurrent.description}</p>
       <div className={styles.priceItem}>
         <span>{cardCurrent.value} ₽</span>
         <img src={addCorzina} alt="" />

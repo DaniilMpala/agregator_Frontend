@@ -1,0 +1,34 @@
+.block{
+    display: flex;
+    justify-content: space-between;
+}
+.list{
+    min-height: 150px;
+    width: 100%;
+}
+
+.but{
+    width: 250px;
+    margin: 0px 8px;
+    padding: 10px 24px;
+    background-color: var(--secondary);
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 16px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.checked{
+    background-color: var(--bgButton);
+    color: var(--action);
+}
+.checked::after{
+    position: absolute;
+    top: 19px;
+    right: 15px;
+    content:'0';
+    color: transparent;
+    background: url(/src/components/MiniComponents/CategoryOptions/cross.svg) no-repeat;
+}
