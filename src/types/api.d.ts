@@ -30,13 +30,16 @@ interface API$ProductInfo {
 interface API$Filter {
   v: string;
   desc?: string;
+  label?:string
 }
 
 interface API$FiltersData {
   shops: API$Filter[];
   brand: API$Filter[];
+  category: API$Filter[];
   minPrice: number;
   maxPrice: number;
+  sortedBy: API$Filter[]
 }
 interface API$FilterRequestLoadItem {
   search?: string

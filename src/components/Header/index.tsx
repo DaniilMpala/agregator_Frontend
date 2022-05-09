@@ -16,7 +16,7 @@ const Header: React.FC = () => {
       <Logo />
       <SearchInput />
       <Navbar />
-      <Button>Войти в лк</Button>
+      <Button>Войти</Button>
     </header>
   )
 }

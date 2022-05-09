@@ -11,29 +11,42 @@ import styles from "./Product.module.css";
 import MiniSearchInput from "../MiniComponents/MiniSearchInput";
 import { getUrlParams, replaceUri } from "../../global/functions";
 import InfiniteScroll from "react-infinite-scroll-component";
+import CategoryOptions, {
+  OptionCategory,
+} from "../MiniComponents/CategoryOptions";
+import DropDown, { OptionSortedBy } from "../MiniComponents/DropDown";
 
-const filterMapper = ({ v, desc }: API$Filter): Option =>
+const filterMapper = ({ v, desc, label }: API$Filter): Option =>
   desc
     ? {
         value: v,
-        label: v,
+        label: label ? label : v,
         checked: false,
         description: desc,
         visible: true,
       }
     : {
         value: v,
-        label: v,
+        label: label ? label : v,
         checked: false,
         visible: true,
       };
 
 const Product: React.FC = () => {
   const [products, setProduct] = useState<API$ReceivedProductsInfoList>({});
+
   const [marketFilters, setMarketFilters] = useState<Option[]>([]);
+
   const [brandFilters, setBrandFilters] = useState<Option[]>([]);
   const [TextSearchBrandFilters, setTextSearchBrandFilters] =
     useState<string>();
+
+  const [categoryFilters, setCategoryFilters] = useState<OptionCategory[]>([]);
+  const [TextSearchCategoryFilters, setTextSearchCategoryFilters] =
+    useState<string>();
+
+  const [sortedBy, setSortedBy] = useState<OptionSortedBy[]>([]);
+  
   const [rangeValue, setRangeValue] = useState<PriceRange>({
     selected: [0, 100],
     limits: [0, 100],
@@ -55,14 +68,31 @@ const Product: React.FC = () => {
   }, [brandFilters]);
 
   useEffect(() => {
+    let categorySelected = categoryFilters
+      .filter((v) => v.checked)
+      .map((v) => v.value);
+    replaceUri("category", categorySelected.join(","));
+  }, [categoryFilters]);
+
+  useEffect(() => {
+    let sortedBySelected = sortedBy
+      .filter((v) => v.checked)
+      .map((v) => v.value);
+    replaceUri("sortedBy", sortedBySelected.join(","));
+  }, [sortedBy]);
+
+  useEffect(() => {
     replaceUri("price", rangeValue.selected.join(","));
   }, [rangeValue]);
 
   useAsyncEffect(async () => {
     loadItem(); //Загрузка всех айтемов
 
-    const { shops, brand, minPrice, maxPrice } = await API.getFilters();
+    const { shops, brand, minPrice, maxPrice, category, sortedBy } =
+      await API.getFilters();
 
+    setSortedBy(sortedBy.map(filterMapper))
+    setCategoryFilters(category.map(filterMapper));
     setMarketFilters(shops.map(filterMapper));
     setBrandFilters(brand.map(filterMapper));
     setRangeValue({
@@ -71,31 +101,49 @@ const Product: React.FC = () => {
     });
   }, []);
 
-  const loadMoreItem = () => {
-    console.log("Load more");
+  const loadMoreItem = async (shop: string) => {
+    let requestOption: API$FilterRequestLoadItem = getUrlParams();
+
+    requestOption["shops"] = [shop];
+    requestOption["skip"] = products[shop].length; // 24 новых айтемов
+
+    const Items = await API.loadItem(requestOption);
+
+    if(Items[shop].length === 0){
+      console.log("Конец списка")
+    }
+
+    setProduct({ ...products, [shop]: [...products[shop], ...Items[shop]] });
   };
 
   const loadItem = async () => {
-    // if (sortedBy) requestOption["sortedBy"] = sortedBy
-    // if (skip) requestOption["skip"] = skip
-    // if (category) requestOption["category"] = category
+    setProduct({})
     let requestOption: API$FilterRequestLoadItem = getUrlParams();
 
     const Items = await API.loadItem(requestOption);
 
     setProduct(Items);
-    console.log(Items);
   };
 
   const updateOptionsBrandFilter = (searchText: string) => {
     setBrandFilters([
       ...brandFilters.map((item: Option) =>
-        ~item.label.toLowerCase().indexOf(searchText.toLowerCase())
+        ~item.label.toLowerCase().indexOf(searchText.toLowerCase()) //поиск название
           ? { ...item, visible: true }
           : { ...item, visible: false }
       ),
     ]);
     setTextSearchBrandFilters(searchText);
+  };
+  const updateOptionsCategoryFilters = (searchText: string) => {
+    setCategoryFilters([
+      ...categoryFilters.map((item: Option) =>
+        ~item.label.toLowerCase().indexOf(searchText.toLowerCase()) //поиск название
+          ? { ...item, visible: true }
+          : { ...item, visible: false }
+      ),
+    ]);
+    setTextSearchCategoryFilters(searchText);
   };
 
   return (
@@ -127,10 +175,25 @@ const Product: React.FC = () => {
         {Object.keys(products).map((v, i) => (
           <div className={styles.items}>
             <h2 className={styles.items__title}>{v}</h2>
+            <CategoryOptions
+              options={categoryFilters}
+              setOptions={setCategoryFilters}
+            >
+              <MiniSearchInput
+                className={styles.category__filters}
+                setTextSearch={updateOptionsCategoryFilters}
+                textSearch={TextSearchCategoryFilters}
+                placeHolder="Поиск в категориях"
+              />
+              <DropDown
+                options={sortedBy}
+                setOptions={setSortedBy}
+              />
+            </CategoryOptions>
             <InfiniteScroll
               className={styles.items__list}
               dataLength={products[v].length}
-              next={loadMoreItem}
+              next={() => loadMoreItem(v)}
               hasMore={true}
               height="500px"
               loader={<h4>Loading...</h4>}

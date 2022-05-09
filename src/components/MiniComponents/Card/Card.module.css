@@ -36,7 +36,10 @@
 .title {
     font-weight: 400;
     font-size: 14px;
-    color: var(--gray)
+    color: var(--gray);
+
+    overflow: auto;
+    text-overflow: ellipsis;
 }
 
 .priceItem {
@@ -71,7 +74,7 @@
 }
 .card>p {
     margin: 14px 0;
-    height: 57px;
+    height: 58px;
 }
 
 .vlueSymbol {
@@ -131,5 +134,5 @@
     height: 193px;
     object-fit: contain;
     border-radius: 5px;
-    background-color: var(--secondary);
+    /* background-color: var(--secondary); */
 }

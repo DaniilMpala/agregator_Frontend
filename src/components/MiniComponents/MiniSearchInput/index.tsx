@@ -1,29 +1,28 @@
 import React from "react";
 import styles from "./MiniSearchInput.module.css";
-import iconSerach from './iconSerach.svg'
+import iconSerach from "./iconSerach.svg";
 
 interface Props {
   textSearch: string | undefined;
   setTextSearch: (e: string) => void;
-  className?: string
+  className?: string;
+  placeHolder?: string;
 }
 
-const MiniSearchInput: React.FC<Props> = ({ setTextSearch, textSearch, className }) => {
+const MiniSearchInput: React.FC<Props> = ({
+  setTextSearch,
+  textSearch,
+  className,
+  placeHolder = "Поиск",
+}) => {
   return (
-    <div className={styles.inputForm + " " + className}>
-      <img
-        className={styles.inputForm__icon}
-        src={iconSerach}
-        alt="Поиск в каталоге"
-      />
-      <input
-        className={styles.inputForm__input}
-        type="text"
-        onChange={(e) => setTextSearch(e.target.value)}
-        value={textSearch}
-        placeholder="Поиск"
-      />
-    </div>
+    <input
+      className={styles.input + " " + className}
+      type="text"
+      onChange={(e) => setTextSearch(e.target.value)}
+      value={textSearch}
+      placeholder={placeHolder}
+    />
   );
 };
 
