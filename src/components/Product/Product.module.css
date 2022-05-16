@@ -16,9 +16,22 @@
 
 .mini__search__input {
   margin: 0px 10px 10px 25px;
+  padding: 5px 0px 5px 30px;
 }
 
-.items {
+.items {}
+
+.search__pixel::after {
+  margin: 0px 10px 10px 20px;
+  top: 8px;
+  width: 14px;
+  height: 13px;
+}
+
+.item_search__pixel::after {
+  top: 14px;
+  width: 15px;
+  height: 15px;
 }
 
 .items__title {
@@ -29,16 +42,20 @@
 }
 
 .items__list {
+  margin-top: 2px;
+  width: 75vw;
   padding: 0 10px;
   overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
   /* box-shadow: inset var(--main-shadow); */
 }
-.category__filters{
+
+.category__filters {
   width: 200px;
   padding: 10px 10px;
   font-weight: 600;
   font-size: 16px;
   height: 42px;
+  padding: 5px 0px 5px 36px;
 }

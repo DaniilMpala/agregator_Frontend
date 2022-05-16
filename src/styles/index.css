@@ -14,7 +14,6 @@ body, input, button {
   color: var(--text);
   outline: none;
   background: none;
-
   border: none;
 }
 

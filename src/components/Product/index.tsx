@@ -46,43 +46,35 @@ const Product: React.FC = () => {
     useState<string>();
 
   const [sortedBy, setSortedBy] = useState<OptionSortedBy[]>([]);
-  
+
   const [rangeValue, setRangeValue] = useState<PriceRange>({
     selected: [0, 100],
     limits: [0, 100],
   });
   // (document.getElementById("serachInputHeader") as HTMLInputElement)?.value)
 
+  const filteredBySelect = (
+    state: Option[] | OptionCategory[] | OptionSortedBy[]
+  ) => state.filter((v) => v.checked).map((v) => v.value);
+
   useEffect(() => {
-    let marketSelected = marketFilters
-      .filter((v) => v.checked)
-      .map((v) => v.value);
-    replaceUri("shops", marketSelected.join(","));
+    replaceUri("shops", filteredBySelect(marketFilters));
   }, [marketFilters]);
 
   useEffect(() => {
-    let brandSelected = brandFilters
-      .filter((v) => v.checked)
-      .map((v) => v.value);
-    replaceUri("brand", brandSelected.join(","));
+    replaceUri("brand", filteredBySelect(brandFilters));
   }, [brandFilters]);
 
   useEffect(() => {
-    let categorySelected = categoryFilters
-      .filter((v) => v.checked)
-      .map((v) => v.value);
-    replaceUri("category", categorySelected.join(","));
+    replaceUri("category", filteredBySelect(categoryFilters));
   }, [categoryFilters]);
 
   useEffect(() => {
-    let sortedBySelected = sortedBy
-      .filter((v) => v.checked)
-      .map((v) => v.value);
-    replaceUri("sortedBy", sortedBySelected.join(","));
+    replaceUri("sortedBy", filteredBySelect(sortedBy));
   }, [sortedBy]);
 
   useEffect(() => {
-    replaceUri("price", rangeValue.selected.join(","));
+    replaceUri("price", rangeValue.selected);
   }, [rangeValue]);
 
   useAsyncEffect(async () => {
@@ -91,7 +83,7 @@ const Product: React.FC = () => {
     const { shops, brand, minPrice, maxPrice, category, sortedBy } =
       await API.getFilters();
 
-    setSortedBy(sortedBy.map(filterMapper))
+    setSortedBy(sortedBy.map(filterMapper));
     setCategoryFilters(category.map(filterMapper));
     setMarketFilters(shops.map(filterMapper));
     setBrandFilters(brand.map(filterMapper));
@@ -109,15 +101,15 @@ const Product: React.FC = () => {
 
     const Items = await API.loadItem(requestOption);
 
-    if(Items[shop].length === 0){
-      console.log("Конец списка")
+    if (Items[shop].length === 0) {
+      console.log("Конец списка");
     }
 
     setProduct({ ...products, [shop]: [...products[shop], ...Items[shop]] });
   };
 
   const loadItem = async () => {
-    setProduct({})
+    setProduct({});
     let requestOption: API$FilterRequestLoadItem = getUrlParams();
 
     const Items = await API.loadItem(requestOption);
@@ -161,6 +153,7 @@ const Product: React.FC = () => {
           setOptions={setBrandFilters}
         >
           <MiniSearchInput
+            pixelImagesSearchClass={styles.search__pixel}
             className={styles.mini__search__input}
             setTextSearch={updateOptionsBrandFilter}
             textSearch={TextSearchBrandFilters}
@@ -180,15 +173,13 @@ const Product: React.FC = () => {
               setOptions={setCategoryFilters}
             >
               <MiniSearchInput
+                pixelImagesSearchClass={styles.item_search__pixel}
                 className={styles.category__filters}
                 setTextSearch={updateOptionsCategoryFilters}
                 textSearch={TextSearchCategoryFilters}
-                placeHolder="Поиск в категориях"
+                placeHolder="Поиск в кат."
               />
-              <DropDown
-                options={sortedBy}
-                setOptions={setSortedBy}
-              />
+              <DropDown options={sortedBy} setOptions={setSortedBy} />
             </CategoryOptions>
             <InfiniteScroll
               className={styles.items__list}

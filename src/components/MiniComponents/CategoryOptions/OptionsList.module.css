@@ -1,10 +1,10 @@
 .block{
     display: flex;
     justify-content: space-between;
+    width: 75vw;
 }
 .list{
-    min-height: 150px;
-    width: 100%;
+    margin: 0 8px 0 8px;
 }
 
 .but{

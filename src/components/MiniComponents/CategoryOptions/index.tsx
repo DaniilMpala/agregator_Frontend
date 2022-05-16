@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { FixedSizeList } from "react-window";
 import styles from "./OptionsList.module.css";
 // import { Resizable } from "react-resizable";
-
 export interface OptionCategory {
   label: string;
   value: string;
@@ -29,7 +28,6 @@ const CategoryOptions: React.FC<Props> = ({
   children,
 }) => {
   const fnItemCount = () => options.filter((v) => v.visible).length;
-  const refOptions = useRef<HTMLDivElement>();
   const [itemCount, setitemCount] = useState<number>();
   const handleSelect = useCallback(
     (selectedValue: string) => {
@@ -77,11 +75,12 @@ const CategoryOptions: React.FC<Props> = ({
     <div className={styles["block"]}>
       {children[0]}
       <FixedSizeList
+        className={styles.list}
         height={50}
         itemCount={itemCount}
         itemSize={250 + 16}
         layout="horizontal"
-        width={800}
+        width={3000}
       >
         {сolumns}
       </FixedSizeList>

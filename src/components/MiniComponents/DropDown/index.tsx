@@ -43,7 +43,7 @@ const DropDown: React.FC<Props> = ({ setOptions, options }) => {
     let selectedOption = options.find((v) => v.checked);
     console.log(Boolean(selectedOption) )
     if (selectedOption) return selectedOption.label;
-    else return options[0].label;
+    else return options[0]?.label;
   };
 
   return (

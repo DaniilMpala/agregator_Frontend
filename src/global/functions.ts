@@ -1,4 +1,4 @@
-type O = Record<string, string | string[]>
+type O = Record<string, string[] | number[]>
 
 export const getUrlParams = () => {
     var params: O = {}
@@ -11,10 +11,11 @@ export const getUrlParams = () => {
             (p, e) => {
                 var a = e.split('=');
                 if (decodeURIComponent(a[0]) && decodeURIComponent(a[1]))
-                    if (~decodeURIComponent(a[1]).indexOf(",")) {
-                        p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]).split(",");
-                    } else
-                        p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
+                    p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]).split("|");
+                // if (~decodeURIComponent(a[1]).indexOf(",")) {
+                //     p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]).split("|");
+                // } else
+                //     p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]);
                 return p;
             },
             params
@@ -22,15 +23,18 @@ export const getUrlParams = () => {
     return params
 
 }
-export const replaceUri = (value: string, text: string) => {
+export const replaceUri = (value: string, text: string[] | number[]) => {
+    console.log(value, text)
     var params = getUrlParams()
 
     params[value] = text
 
     let strTmpGet = ""
     for (const iterator in params) {
-        if (params[iterator])
-            strTmpGet += `${iterator}=${params[iterator]}&`
+        if (params[iterator]) {
+            strTmpGet += `${iterator}=${params[iterator].join("|")}&`
+        }
+
     }
 
     var baseUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;

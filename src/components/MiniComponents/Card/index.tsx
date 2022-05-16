@@ -43,6 +43,13 @@ interface Props {
   productsInfos: API$ProductInfo[];
 }
 
+// const findMinimumPrice = (productsInfos: API$ProductInfo[]) => {
+//   return productsInfos.reduce(
+//     (returnItem, currentItem) =>
+//       currentItem.value < returnItem.value ? currentItem : returnItem,
+//     productsInfos[0]
+//   );
+// };
 const Card: React.FC<Props> = ({ productsInfos }) => {
   const [cardCurrent, setCardCurrent] = useState(productsInfos[0]);
 
@@ -67,7 +74,9 @@ const Card: React.FC<Props> = ({ productsInfos }) => {
             }}
             className={styles.discount}
           >
-            -{cardCurrent.promoPercent}%
+            {!isNaN(cardCurrent.promoPercent)
+              ? `-${cardCurrent.promoPercent}%`
+              : cardCurrent.promoPercent}
           </span>
         )}
         <LoveBox />
