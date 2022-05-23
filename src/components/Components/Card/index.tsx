@@ -7,18 +7,18 @@ import defaultImg from "./defaultImg.svg";
 import addCorzina from "./addCorzina.svg";
 
 const month = [
-  "января",
-  "февраля",
+  "янв.",
+  "фев.",
   "марта",
-  "апреля",
+  "апр.",
   "мая",
   "июня",
   "июля",
-  "августа",
-  "сентября",
-  "октябрь",
+  "авг.",
+  "сент.",
+  "окт.",
   "ноября",
-  "декабря",
+  "дек.",
 ];
 
 const LoveBox: React.FC = () => {
@@ -81,37 +81,39 @@ const Card: React.FC<Props> = ({ productsInfos }) => {
         )}
         <LoveBox />
       </div>
-      <div className={styles.infoShop}>
-        {productsInfos.length > 1 && (
-          <div className={styles.listShops}>
-            {productsInfos.map(({ shopsImg, id, titleShops }, i) => (
-              <img
-                key={id}
-                src={shopsImg}
-                onClick={() => switchCard(i)}
-                alt={titleShops}
-              ></img>
-            ))}
-          </div>
+      <div className={styles.item_shops}>
+        <div className={styles.item_shops_block}>
+          {productsInfos.length > 1 && (
+            <div className={styles.listShops}>
+              {productsInfos.map(({ shopsImg, id, titleShops }, i) => (
+                <img
+                  key={id}
+                  src={shopsImg}
+                  onClick={() => switchCard(i)}
+                  alt={titleShops}
+                ></img>
+              ))}
+            </div>
+          )}
+
+          <img src={cardCurrent.shopsImg} alt=""></img>
+          {new Date(cardCurrent.promoEnd).getTime() - new Date().getTime() <
+            1000 * 60 * 60 * 24 * 200 && (
+            <span className={styles.dateInfo}>
+              по {new Date(cardCurrent.promoEnd).getDate()}{" "}
+              {month[new Date(cardCurrent.promoEnd).getMonth()]}
+            </span>
+          )}
+        </div>
+
+        {cardCurrent.valueSymbol && (
+          <span className={styles.vlueSymbol}>
+            {cardCurrent.valueSymbol} ₽ / {cardCurrent.symbol}
+          </span>
         )}
-
-        <img src={cardCurrent.shopsImg} alt=""></img>
-        <span className={styles.dateInfo}>
-          {/* с {new Date(cardCurrent.promoStart).getDate()}{" "}
-          {new Date(cardCurrent.promoStart).getMonth() !=
-          new Date(cardCurrent.promoEnd).getMonth()
-            ? month[new Date(cardCurrent.promoStart).getMonth()]
-            : ""}{" "} */}
-          по {new Date(cardCurrent.promoEnd).getDate()}{" "}
-          {month[new Date(cardCurrent.promoEnd).getMonth()]}
-        </span>
-
-        <span className={styles.vlueSymbol}>
-          {cardCurrent.valueSymbol} ₽ / {cardCurrent.symbol}
-        </span>
       </div>
       <p className={styles.title}>{cardCurrent.description}</p>
-      <div className={styles.priceItem}>
+      <div className={styles.price_item}>
         <span>{cardCurrent.value} ₽</span>
         <img src={addCorzina} alt="" />
       </div>

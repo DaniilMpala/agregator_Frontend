@@ -2,45 +2,51 @@ import React, { useContext, useEffect, useState } from "react";
 
 import * as API from "../../utils/api";
 import { useAsyncEffect } from "../../hooks";
-import Card from "../MiniComponents/Card";
-import PriceFilter, { PriceRange } from "../MiniComponents/PriceFilter";
-import OptionsList, { Option } from "../MiniComponents/OptionsList";
-import GrayButton from "../MiniComponents/GrayButton";
-import SocialNetwork from "../MiniComponents/SocialNetwork";
+import Card from "../Components/Card";
+import PriceFilter, { PriceRange } from "../Components/PriceFilter";
+import OptionsList, { Option } from "../Components/OptionsList";
+import GrayButton from "../Components/GrayButton";
+import SocialNetwork from "../Components/SocialNetwork";
 import styles from "./Product.module.css";
-import MiniSearchInput from "../MiniComponents/MiniSearchInput";
+import MiniSearchInput from "../Components/MiniSearchInput";
 import { getUrlParams, replaceUri } from "../../global/functions";
 import InfiniteScroll from "react-infinite-scroll-component";
-import CategoryOptions, {
-  OptionCategory,
-} from "../MiniComponents/CategoryOptions";
-import DropDown, { OptionSortedBy } from "../MiniComponents/DropDown";
+import CategoryOptions, { OptionCategory } from "../Components/CategoryOptions";
+import DropDown, { OptionSortedBy } from "../Components/DropDown";
+import Preloader from "../Components/Preloader";
+
+const parametrsUrlFilter = getUrlParams();
+
+//ищет совпадение во всех массивах параметра, и если есть совпадение по VALUE то true
+const findInUrlParams = (value: string) => {
+  for (const key in parametrsUrlFilter) {
+    if (parametrsUrlFilter[key].some((v) => v == value)) return true;
+  }
+  return false;
+};
 
 const filterMapper = ({ v, desc, label }: API$Filter): Option =>
   desc
     ? {
         value: v,
         label: label ? label : v,
-        checked: false,
+        checked: findInUrlParams(v),
         description: desc,
         visible: true,
       }
     : {
         value: v,
         label: label ? label : v,
-        checked: false,
+        checked: findInUrlParams(v),
         visible: true,
       };
 
 const Product: React.FC = () => {
   const [products, setProduct] = useState<API$ReceivedProductsInfoList>({});
-
   const [marketFilters, setMarketFilters] = useState<Option[]>([]);
-
   const [brandFilters, setBrandFilters] = useState<Option[]>([]);
   const [TextSearchBrandFilters, setTextSearchBrandFilters] =
     useState<string>();
-
   const [categoryFilters, setCategoryFilters] = useState<OptionCategory[]>([]);
   const [TextSearchCategoryFilters, setTextSearchCategoryFilters] =
     useState<string>();
@@ -48,33 +54,35 @@ const Product: React.FC = () => {
   const [sortedBy, setSortedBy] = useState<OptionSortedBy[]>([]);
 
   const [rangeValue, setRangeValue] = useState<PriceRange>({
-    selected: [0, 100],
-    limits: [0, 100],
+    selected: [0, 0],
+    limits: [0, 0],
   });
-  // (document.getElementById("serachInputHeader") as HTMLInputElement)?.value)
 
   const filteredBySelect = (
     state: Option[] | OptionCategory[] | OptionSortedBy[]
   ) => state.filter((v) => v.checked).map((v) => v.value);
 
   useEffect(() => {
-    replaceUri("shops", filteredBySelect(marketFilters));
+    if (marketFilters.length > 0)
+      replaceUri("shops", filteredBySelect(marketFilters));
   }, [marketFilters]);
 
   useEffect(() => {
-    replaceUri("brand", filteredBySelect(brandFilters));
+    if (brandFilters.length > 0)
+      replaceUri("brand", filteredBySelect(brandFilters));
   }, [brandFilters]);
 
   useEffect(() => {
-    replaceUri("category", filteredBySelect(categoryFilters));
+    if (categoryFilters.length > 0)
+      replaceUri("category", filteredBySelect(categoryFilters));
   }, [categoryFilters]);
 
   useEffect(() => {
-    replaceUri("sortedBy", filteredBySelect(sortedBy));
+    if (sortedBy.length > 0) replaceUri("sortedBy", filteredBySelect(sortedBy));
   }, [sortedBy]);
 
   useEffect(() => {
-    replaceUri("price", rangeValue.selected);
+    if (rangeValue.selected[0] > 0) replaceUri("price", rangeValue.selected);
   }, [rangeValue]);
 
   useAsyncEffect(async () => {
@@ -83,17 +91,21 @@ const Product: React.FC = () => {
     const { shops, brand, minPrice, maxPrice, category, sortedBy } =
       await API.getFilters();
 
-    setSortedBy(sortedBy.map(filterMapper));
-    setCategoryFilters(category.map(filterMapper));
-    setMarketFilters(shops.map(filterMapper));
-    setBrandFilters(brand.map(filterMapper));
+    setSortedBy(sortedBy.map(filterMapper)); //+
+    setCategoryFilters(category.map(filterMapper)); //+
+    setMarketFilters(shops.map(filterMapper)); //+
+    setBrandFilters(brand.map(filterMapper)); //+
     setRangeValue({
-      selected: [minPrice, maxPrice],
+      selected: [
+        Number(parametrsUrlFilter?.price[0]) || minPrice,
+        Number(parametrsUrlFilter?.price[1]) || maxPrice,
+      ], //если в поисковой строке уже есть выбранный диапазон то ставим его
       limits: [minPrice, maxPrice],
     });
   }, []);
 
   const loadMoreItem = async (shop: string) => {
+    console.log("loadMoreItem");
     let requestOption: API$FilterRequestLoadItem = getUrlParams();
 
     requestOption["shops"] = [shop];
@@ -120,7 +132,8 @@ const Product: React.FC = () => {
   const updateOptionsBrandFilter = (searchText: string) => {
     setBrandFilters([
       ...brandFilters.map((item: Option) =>
-        ~item.label.toLowerCase().indexOf(searchText.toLowerCase()) //поиск название
+        ~item.label.toLowerCase().indexOf(searchText.toLowerCase()) ||
+        ~item.value.toLowerCase().indexOf(searchText.toLowerCase()) //поиск название и по value
           ? { ...item, visible: true }
           : { ...item, visible: false }
       ),
@@ -136,6 +149,11 @@ const Product: React.FC = () => {
       ),
     ]);
     setTextSearchCategoryFilters(searchText);
+  };
+
+  const setSortedBySelect = (array: OptionSortedBy[]) => {
+    setSortedBy(array);
+    loadItem();
   };
 
   return (
@@ -174,25 +192,23 @@ const Product: React.FC = () => {
             >
               <MiniSearchInput
                 pixelImagesSearchClass={styles.item_search__pixel}
-                className={styles.category__filters}
+                className={styles.category_filters}
                 setTextSearch={updateOptionsCategoryFilters}
                 textSearch={TextSearchCategoryFilters}
                 placeHolder="Поиск в кат."
               />
-              <DropDown options={sortedBy} setOptions={setSortedBy} />
+              <DropDown options={sortedBy} setOptions={setSortedBySelect} />
             </CategoryOptions>
             <InfiniteScroll
-              className={styles.items__list}
+              className={styles.items_list}
               dataLength={products[v].length}
               next={() => loadMoreItem(v)}
               hasMore={true}
               height="500px"
-              loader={<h4>Loading...</h4>}
+              loader={<Preloader />}
             >
-              {products[v].map((item: API$ProductInfo[]) => (
-                <>
-                  <Card productsInfos={item} />
-                </>
+              {products[v].map((item: API$ProductInfo[], i) => (
+                <Card key={i} productsInfos={item} />
               ))}
             </InfiniteScroll>
           </div>

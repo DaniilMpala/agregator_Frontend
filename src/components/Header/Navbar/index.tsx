@@ -5,13 +5,13 @@ import classNames from "classnames";
 import styles from "./Navbar.module.css";
 
 const slideActive = classNames({
-  [styles.slideLinkActive]: true,
-  [styles.slideLink]: true,
+  [styles.slide_link__active]: true,
+  [styles.slide_link]: true,
 });
 
 const classNameProp = {
   className: ({ isActive }: { isActive: boolean }) =>
-    isActive ? slideActive : styles.slideLink,
+    isActive ? slideActive : styles.slide_link,
 };
 
 const Navbar: React.FC = () => {

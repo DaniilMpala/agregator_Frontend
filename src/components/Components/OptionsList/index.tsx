@@ -26,6 +26,13 @@ const OptionsList: React.FC<Props> = ({
   options,
   children,
 }) => {
+  const removeSelectAdd = () => {
+    const newOptions = options.map((option) => ({
+      ...option,
+      checked: false,
+    }));
+    setOptions(newOptions);
+  };
   const handleSelect = useCallback(
     (selectedValue: string) => {
       const newOptions = options.map((option) =>
@@ -38,7 +45,6 @@ const OptionsList: React.FC<Props> = ({
       );
 
       setOptions(newOptions);
-      
     },
     [options, setOptions]
   );
@@ -47,11 +53,20 @@ const OptionsList: React.FC<Props> = ({
     <div className={styles["block"]}>
       <h3 className={styles["title"]}>{title}</h3>
       {children}
+      {options.find((v) => v.checked) && (
+        <button className={styles["option"]} onClick={removeSelectAdd}>
+          <input type="checkbox" defaultChecked={true} />
+          <span className={styles["option-label"]}>Убрать выбранные</span>
+        </button>
+      )}
       {/* (?) VM2105 react_devtools_backend.js:3973 react-virtuoso: Zero-sized element, this should not happen Object в консоли выводится чето ему не нравится но я хз но кст не всегда хз */}
       <Virtuoso
         className={styles["list"]}
         data={options}
-        itemContent={(i, { label, description, value, checked, visible }:Option) =>
+        itemContent={(
+          i,
+          { label, description, value, checked, visible }: Option
+        ) =>
           visible && (
             <button
               key={value}
@@ -74,28 +89,6 @@ const OptionsList: React.FC<Props> = ({
           )
         }
       />
-      {/* <div className={styles["list"]}>
-        {options.map(({ label, description, value, checked, visible }) => visible &&(
-          <button
-            key={value}
-            className={styles["option"]}
-            onClick={() => handleSelect(value)}
-          >
-            <input type="checkbox" checked={checked} />
-            <span
-              title={capitalizeFirstLetter(label)}
-              className={styles["option-label"]}
-            >
-              {capitalizeFirstLetter(label)}
-            </span>
-            {description && (
-              <span className={styles["option-description"]}>
-                {description}
-              </span>
-            )}
-          </button>
-        ))}
-      </div> */}
     </div>
   );
 };

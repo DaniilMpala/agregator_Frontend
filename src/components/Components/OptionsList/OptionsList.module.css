@@ -29,8 +29,17 @@
     overflow: hidden;
     text-overflow: ellipsis;
     width: 150px;
-}
 
+    animation: opac 300ms ease-in-out;
+}
+@keyframes opac {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
 .option-description {
     font-weight: 600;
     font-size: 10px;

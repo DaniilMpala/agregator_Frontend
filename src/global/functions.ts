@@ -10,7 +10,7 @@ export const getUrlParams = () => {
         .reduce(
             (p, e) => {
                 var a = e.split('=');
-                if (decodeURIComponent(a[0]) && decodeURIComponent(a[1]))
+                if (decodeURIComponent(a[0]) && decodeURIComponent(encodeURI(a[1])))
                     p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]).split("|");
                 // if (~decodeURIComponent(a[1]).indexOf(",")) {
                 //     p[decodeURIComponent(a[0])] = decodeURIComponent(a[1]).split("|");
@@ -24,15 +24,14 @@ export const getUrlParams = () => {
 
 }
 export const replaceUri = (value: string, text: string[] | number[]) => {
-    console.log(value, text)
     var params = getUrlParams()
 
     params[value] = text
 
     let strTmpGet = ""
     for (const iterator in params) {
-        if (params[iterator]) {
-            strTmpGet += `${iterator}=${params[iterator].join("|")}&`
+        if (params[iterator].length !== 0) {
+            strTmpGet += `${iterator}=${params[iterator].join("|").replace(/%/g, "%25")}&`
         }
 
     }

@@ -1,12 +1,15 @@
 .but {
     border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
     background: var(--primary);
     box-shadow: var(--main-shadow);
     font-weight: 600;
-    font-size: 18px;
+    font-size: 17px;
     color: var(--gray);
-    padding: 12px 28px;
-    width: 300px;
+    padding: 9px 28px;
+    width: max-content;
 }
 
 .block {
@@ -18,7 +21,6 @@
 }
 
 .drop-down {
-    width: 250px;
     z-index: 99;
     height: auto;
     position: absolute;
@@ -29,23 +31,38 @@
     opacity: 0;
 
     background: var(--primary);
+    box-shadow: var(--main-shadow);
+    animation: opac 300ms ease-in-out forwards;
 
-    padding: 16px;
+    border-radius: 6px;
 }
 
 .active {
     display: flex;
-    opacity: 1;
 
+    margin-top: 10px;
+}
+
+@keyframes opac {
+    100% {
+        opacity: 1;
+    }
 }
 
 .but-drop-down {
-
-    box-shadow: var(--main-shadow);
     font-weight: 600;
     font-size: 14px;
     padding: 9px 0px;
-    margin:2px 10px;
+    margin: 1px 0;
+}
+.but-drop-down:last-child {
+    margin: 1px 0 0 0;
+}
+.but-drop-down:first-child {
+    margin: 0 0 1px 0;
+}
+
+.but-drop-down:hover {
     border-radius: 6px;
 }
 

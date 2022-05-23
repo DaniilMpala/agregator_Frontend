@@ -41,21 +41,22 @@
   margin: 34px 0px 8px 0px;
 }
 
-.items__list {
+.items_list {
   margin-top: 2px;
   width: 75vw;
-  padding: 0 10px;
+  padding: 10px;
   overflow-y: auto;
-  display: flex;
+  display: grid;
   flex-wrap: wrap;
+  grid-template-columns: repeat( auto-fit, minmax(225px, 1fr) );
   /* box-shadow: inset var(--main-shadow); */
 }
 
-.category__filters {
+.category_filters {
   width: 200px;
   padding: 10px 10px;
   font-weight: 600;
   font-size: 16px;
   height: 42px;
-  padding: 5px 0px 5px 36px;
+  padding: 5px 0px 5px 40px;
 }

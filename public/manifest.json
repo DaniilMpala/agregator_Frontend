@@ -1,0 +1,15 @@
+{
+    "short_name": "Easy Discounts",
+    "name": "Вэб-аграгтор скидок Easy Easy",
+    "icons": [
+      {
+        "src": "favicon.png",
+        "sizes": "50x57",
+        "type": "image/png"
+      }
+    ],
+    "start_url": "./index.html",
+    "display": "standalone",
+    "theme_color": "#000000",
+    "background_color": "#ffffff"
+  }

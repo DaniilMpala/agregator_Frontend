@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import styles from "./DropDown.module.css";
-import dropArrow from "./dropArrow.svg";
+import dropArrowClose from "./dropArrowClose.svg";
+import dropArrowOpen from "./dropArrowOpen.svg";
 
 export interface OptionSortedBy {
   value: string;
@@ -9,7 +10,7 @@ export interface OptionSortedBy {
 }
 interface Props {
   options: OptionSortedBy[];
-  setOptions: React.Dispatch<React.SetStateAction<OptionSortedBy[]>>;
+  setOptions: (array: OptionSortedBy[]) => void;
 }
 
 const DropDown: React.FC<Props> = ({ setOptions, options }) => {
@@ -34,14 +35,13 @@ const DropDown: React.FC<Props> = ({ setOptions, options }) => {
     [options, setOptions]
   );
   const clickSelect = (selectedValue: string) => {
-    handleSelect(selectedValue)
-    openDropDown()
-  }
+    handleSelect(selectedValue);
+    openDropDown();
+  };
   const openDropDown = () => setIsOpen(!isOpen);
 
   const findSelected = () => {
     let selectedOption = options.find((v) => v.checked);
-    console.log(Boolean(selectedOption) )
     if (selectedOption) return selectedOption.label;
     else return options[0]?.label;
   };
@@ -50,13 +50,15 @@ const DropDown: React.FC<Props> = ({ setOptions, options }) => {
     <div className={styles["block"]}>
       <button onClick={openDropDown} className={styles["but"]}>
         {findSelected()}
-        <img alt="" src={dropArrow} />
+        {!isOpen && <img alt="" src={dropArrowClose} />}
+        {isOpen && <img alt="" src={dropArrowOpen} />}
       </button>
       <div className={styles["drop-down"] + " " + (isOpen && styles["active"])}>
         {options.map(
           ({ value, label, checked }) =>
-            !checked && (
+            findSelected() !== label && (
               <button
+                key={value}
                 onClick={() => clickSelect(value)}
                 className={styles["but-drop-down"]}
                 value={value}
