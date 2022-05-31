@@ -1,0 +1,9 @@
+.coming {
+    font-size: 100px;
+    font-weight: 600;
+    color: var(--not-active);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
