@@ -1,0 +1,96 @@
+.block_main {
+    position: relative;
+}
+
+.main_img {
+    width: 100%;
+}
+
+.main_but {
+    background-color: var(--bg_button);
+    position: absolute;
+    bottom: 2vh;
+    left: calc(10% + 4vw);
+
+    font-size: 32px;
+    color: var(--action);
+    padding: 18px 23px 18px 43px;
+    font-weight: 600;
+
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+}
+
+.social {
+    position: absolute;
+    left: 50px;
+    top: 32vh;
+}
+
+.title, .desc {
+    position: absolute;
+    color: var(--secondary)
+}
+
+.title {
+    top: 10vh;
+    left: 10%;
+    font-weight: 800;
+    font-size: 5vw;
+    line-height: 5vw;
+    width: 45vw;
+}
+
+.desc {
+    top: 32vh;
+    left: 10%;
+    font-weight: 600;
+    font-size: 1vw;
+    width: 35vw;
+}
+
+.block_desc {
+    background-image: url(./bg_desc.svg);
+    background-repeat: space;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 5% 10%;
+}
+
+.block_desc_right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.description_block {
+    margin-top: 5%;
+    display: flex;
+    height: 250px;
+}
+
+.buyers_choice_cards {
+    display: flex;
+}
+
+.description_block img {
+    width: 100%;
+    margin-left: 60px;
+    height: 100%;
+    object-fit: contain;
+}
+
+.description {
+    font-weight: 600;
+    font-size: 20px;
+    color: var(--not-active);
+}
+
+.buyers_choice, .description_title {
+    font-weight: 700;
+    font-size: 62px;
+    margin: 17px 0;
+}

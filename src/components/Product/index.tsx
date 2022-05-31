@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import * as API from "../../utils/api";
 import { useAsyncEffect } from "../../hooks";
@@ -97,8 +97,12 @@ const Product: React.FC = () => {
     setBrandFilters(brand.map(filterMapper)); //+
     setRangeValue({
       selected: [
-        Number(parametrsUrlFilter?.price[0]) || minPrice,
-        Number(parametrsUrlFilter?.price[1]) || maxPrice,
+        (parametrsUrlFilter?.price &&
+          Number(parametrsUrlFilter?.price[0])) ||
+          minPrice,
+        (parametrsUrlFilter?.price &&
+          Number(parametrsUrlFilter?.price[1])) ||
+          maxPrice,
       ], //если в поисковой строке уже есть выбранный диапазон то ставим его
       limits: [minPrice, maxPrice],
     });
@@ -153,7 +157,8 @@ const Product: React.FC = () => {
 
   const setSortedBySelect = (array: OptionSortedBy[]) => {
     setSortedBy(array);
-    loadItem();
+    setTimeout(() => loadItem(), 400);
+    
   };
 
   return (
@@ -183,6 +188,7 @@ const Product: React.FC = () => {
         <SocialNetwork vertical={false} className={styles.social} />
       </div>
       <div>
+        {Object.keys(products).length === 0 && <Preloader style={{height: "100%", width: "75vw"}} />}
         {Object.keys(products).map((v, i) => (
           <div className={styles.items}>
             <h2 className={styles.items__title}>{v}</h2>

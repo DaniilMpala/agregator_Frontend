@@ -5,10 +5,10 @@
     color: var(--gray);
     box-shadow: var(--main-shadow);
     border-radius: 6px;
-    background: var(--bgButton-gray);
+    background: var(--bg_button-gray);
 }
 
 .button:hover {
     color: var(--action);
-    background: var(--bgButton);
+    background: var(--bg_button);
   }

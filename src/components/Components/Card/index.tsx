@@ -1,25 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 
 import styles from "./Card.module.css";
 
 import defaultImg from "./defaultImg.svg";
 
 import addCorzina from "./addCorzina.svg";
-
-const month = [
-  "янв.",
-  "фев.",
-  "марта",
-  "апр.",
-  "мая",
-  "июня",
-  "июля",
-  "авг.",
-  "сент.",
-  "окт.",
-  "ноября",
-  "дек.",
-];
+import { BasketContext, BasketActionsTypes } from "../../../Contexts/Basket";
+import { month } from "../../../global/variable";
 
 const LoveBox: React.FC = () => {
   return (
@@ -51,18 +38,31 @@ interface Props {
 //   );
 // };
 const Card: React.FC<Props> = ({ productsInfos }) => {
+  const [baskettState, basketDispatch] = useContext(BasketContext);
+  const refRestartAnimation = useRef() as React.MutableRefObject<HTMLInputElement>
   const [cardCurrent, setCardCurrent] = useState(productsInfos[0]);
 
   const switchCard = (index: number) => {
     setCardCurrent(productsInfos[index]);
+    
+    refRestartAnimation.current.classList.remove(styles.animtaion)
+    //Что то типо принудительного обновления
+    setTimeout(() => refRestartAnimation.current.classList.add(styles.animtaion), 0);
+  };
+  const addInBasket = (item: API$ProductInfo) => {
+    basketDispatch({
+      type: BasketActionsTypes.ADD_ITEM,
+      payload: item,
+    });
   };
 
   return (
-    <div className={styles.card}>
+    <div ref={refRestartAnimation} className={styles.card}>
       <div className={styles.blockCard}>
         <img
-          className={styles.imgItem}
+          className={styles.img_item}
           src={cardCurrent.img ? cardCurrent.img : defaultImg}
+          onError={({ currentTarget }) => (currentTarget.src = defaultImg)}
           alt=""
         />
 
@@ -85,9 +85,9 @@ const Card: React.FC<Props> = ({ productsInfos }) => {
         <div className={styles.item_shops_block}>
           {productsInfos.length > 1 && (
             <div className={styles.listShops}>
-              {productsInfos.map(({ shopsImg, id, titleShops }, i) => (
+              {productsInfos.map(({ shopsImg, titleShops }, i) => (
                 <img
-                  key={id}
+                  key={i}
                   src={shopsImg}
                   onClick={() => switchCard(i)}
                   alt={titleShops}
@@ -115,7 +115,7 @@ const Card: React.FC<Props> = ({ productsInfos }) => {
       <p className={styles.title}>{cardCurrent.description}</p>
       <div className={styles.price_item}>
         <span>{cardCurrent.value} ₽</span>
-        <img src={addCorzina} alt="" />
+        <img onClick={() => addInBasket(cardCurrent)} src={addCorzina} alt="" />
       </div>
     </div>
   );

@@ -1,9 +1,14 @@
 import React from "react";
 import styles from "./Preloader.module.css";
 
-const Preloader: React.FC = () => {
+interface Props {
+  className?: string
+  style?: object
+}
+
+const Preloader: React.FC<Props> = ({className = "", style = {}}) => {
   return (
-    <div className={styles.block}>
+    <div style={style} className={styles.block + " " + className}>
       <div className={styles.animation}>
         <div></div>
         <div></div>

@@ -68,5 +68,5 @@
 
 .but-drop-down:hover {
     color: var(--action);
-    background: var(--bgButton);
+    background: var(--bg_button);
 }

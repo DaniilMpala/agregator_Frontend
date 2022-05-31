@@ -9,7 +9,7 @@ interface API$ProductInfo {
   value: number;
   promoPercent: number;
 
-  id: number;
+  _id: number;
 
   valueSymbol: number;
   symbol: string;

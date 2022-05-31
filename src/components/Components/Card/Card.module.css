@@ -9,8 +9,9 @@
     align-content: center;
     padding: 12px 16px;
     justify-content: space-between;
-    margin: 12px 8px;
-
+    margin: 12px 12px;
+}
+.animtaion {
     animation: opac 300ms ease-in-out forwards;
 }
 @keyframes opac {
@@ -33,14 +34,18 @@
 }
 
 .discount {
-    border-radius: 6px;
+    transform: rotate(-30deg);
+    border-radius: 4px;
     position: absolute;
     top: 10px;
     left: 8px;
     color: var(--primary);
-    padding: 4px 10px;
     font-weight: 600;
-    font-size: 11px;
+    font-size: 10px;
+    width: 28px;
+    height: 28px;
+    line-height: 26px;
+    text-align: center;
 }
 
 .title {
@@ -74,7 +79,7 @@
 }
 
 .price_item>img {
-    background-color: var(--bgButton);
+    background-color: var(--bg_button);
     border-radius: 6px;
     box-shadow: var(--main-shadow);
     padding: 7px;
@@ -149,7 +154,7 @@
 
 .dateInfo {
     color: var(--action);
-    background-color: var(--bgButton);
+    background-color: var(--bg_button);
     height: 24px;
     border-radius: 6px;
     font-weight: 500;
@@ -161,7 +166,7 @@
     padding: 0px 10px;
 }
 
-.imgItem {
+.img_item {
     width: 193px;
     height: 193px;
     object-fit: contain;

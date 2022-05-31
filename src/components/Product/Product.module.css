@@ -48,7 +48,7 @@
   overflow-y: auto;
   display: grid;
   flex-wrap: wrap;
-  grid-template-columns: repeat( auto-fit, minmax(225px, 1fr) );
+  grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
   /* box-shadow: inset var(--main-shadow); */
 }
 

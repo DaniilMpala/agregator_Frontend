@@ -26,6 +26,7 @@
     "react-resizable": "^3.0.4",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "react-svg": "^15.0.1",
     "react-virtualized": "^9.22.3",
     "react-virtualized-auto-sizer": "^1.0.6",
     "react-virtuoso": "^2.11.0",

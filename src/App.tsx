@@ -1,31 +1,29 @@
 import React, { useReducer } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Basket from "./components/Components/Basket";
 
 import Header from "./components/Header";
+import Index from "./components/Index";
 import Product from "./components/Product";
-// import {
-//   ProductContext,
-//   initialState,
-//   productReducer,
-// } from "./Contexts/Сheck";
+import { BasketContext, initialState, BasketReducer } from "./Contexts/Basket";
 
 const App: React.FC = () => {
-  // const [productState, productDispatch] = useReducer(
-  //   productReducer,
-  //   initialState
-  // );
-
+  const [baskettState, basketDispatch] = useReducer(
+    BasketReducer,
+    initialState
+  );
   return (
     <div className="App">
       <BrowserRouter>
-        {/* <ProductContext.Provider value={[productState, productDispatch]}> */}
-        <Header />
-        <Routes>
-          <Route path="/" element={<p>Главная</p>} />
-          <Route path="products" element={<Product />} />
-          <Route path="pharmacies" element={<p>pharmacies</p>} />
-        </Routes>
-        {/* </ProductContext.Provider> */}
+        <BasketContext.Provider value={[baskettState, basketDispatch]}>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="products" element={<Product />} />
+            <Route path="pharmacies" element={<p>pharmacies</p>} />
+          </Routes>
+          <Basket />
+        </BasketContext.Provider>
       </BrowserRouter>
     </div>
   );

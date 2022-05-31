@@ -1,8 +1,8 @@
 header {
     display: grid;
-    grid-template-columns: max-content auto auto 210px;
+    grid-template-columns: max-content auto auto 38px;
     column-gap: 40px;
-    padding: 0px 26px;
+    padding: 0px 10%;
     align-items: center;
     box-shadow: var(--main-shadow);
 
@@ -16,4 +16,17 @@ header {
     top: 19px;
     width: 20px;
     height: 20px;
+}
+.header_icon_lk{
+    fill:var(--gray);
+    cursor: pointer;
+    transition: all 300ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    padding: 5px;
+    background-color: var(--primary);
+    box-shadow: var(--main-shadow);
+    border-radius: 6px;
+}
+.header_icon_lk:hover{
+    fill:var(--action);
+    background-color: var(--bg_button);
 }
