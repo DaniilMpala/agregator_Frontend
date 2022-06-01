@@ -210,7 +210,7 @@ const Product: React.FC = () => {
               dataLength={products[v].length}
               next={() => loadMoreItem(v)}
               hasMore={true}
-              height="500px"
+
               loader={<Preloader />}
             >
               {products[v].map((item: API$ProductInfo[], i) => (

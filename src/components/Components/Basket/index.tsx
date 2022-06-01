@@ -1,6 +1,7 @@
 import React, { useContext, useRef, useState } from "react";
 import styles from "./Basket.module.css";
 import BasketSvg from "./basket.svg";
+import basketMoreItems from "./basketMoreItems.svg";
 import BasketNoItems from "./basketNoItems.svg";
 import rePost from "./rePost.svg";
 import save from "./save.svg";
@@ -104,7 +105,7 @@ const Basket: React.FC = () => {
           ref={refShodowButtonIcon}
           className={styles.basket_icon}
         >
-          <img src={BasketSvg} alt="" />
+          <img src={Object.keys(baskettState).length > 0 ? basketMoreItems :  BasketSvg} alt="" />
         </button>
       ) : (
         <div ref={refCloseBasket} className={styles.open_backet}>

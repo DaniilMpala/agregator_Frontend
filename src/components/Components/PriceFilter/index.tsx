@@ -22,13 +22,21 @@ const sliderStyle: React.CSSProperties = {
 };
 
 const PriceFilter: React.FC<Props> = ({ rangeValue, setRangeValue }) => {
+  const changeInput = (e: any, first:boolean) => {
+    let number = e.target.value.replace(/[^\d.,]/ig, '')
+    
+    if(first) rangeValue.selected[0] = number
+    else rangeValue.selected[1] = number
+
+    setRangeValue({ ...rangeValue });
+  }
   return (
     <div className={styles.filter__price}>
       <span className={styles.filter__price__title}>Цена</span>
       <div className={styles.filter__price__blockFilter}>
         <div className={styles.filter__price__Blockvol}>
-          <span>{rangeValue.selected[0]} ₽</span>
-          <span>{rangeValue.selected[1]} ₽</span>
+          <input onInput={(e) => changeInput(e, true)} value={rangeValue.selected[0] + " ₽"}></input>
+          <input onInput={(e) => changeInput(e, false)} value={rangeValue.selected[1] + " ₽"}></input>
         </div>
 
         <Slider

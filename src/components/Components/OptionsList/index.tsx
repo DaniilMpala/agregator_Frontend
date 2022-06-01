@@ -73,7 +73,7 @@ const OptionsList: React.FC<Props> = ({
               className={styles["option"]}
               onClick={() => handleSelect(value)}
             >
-              <input type="checkbox" checked={checked} />
+              <input type="checkbox" checked={checked} readOnly/>
               <span
                 title={capitalizeFirstLetter(label)}
                 className={styles["option-label"]}
