@@ -4,16 +4,19 @@ import Basket from "./components/Components/Basket";
 
 import Header from "./components/Header";
 import Index from "./components/Index";
-import Lk from "./components/Lk";
+import SettingUser from "./components/Lk/SettingUser";
+import FavoriteProducts from "./components/Lk/FavoriteProducts";
 import Pharmacies from "./components/Pharmacies";
 import Product from "./components/Product";
 import { BasketContext, initialState, BasketReducer } from "./Contexts/Basket";
+import Auth from "./components/Lk/Auth";
 
 const App: React.FC = () => {
   const [baskettState, basketDispatch] = useReducer(
     BasketReducer,
     initialState
   );
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -23,7 +26,11 @@ const App: React.FC = () => {
             <Route path="/" element={<Index />} />
             <Route path="products" element={<Product />} />
             <Route path="pharmacies" element={<Pharmacies />} />
-            <Route path="lk" element={<Lk />} />
+            <Route path="lk">
+              <Route path="auth" element={<Auth />}/>
+              <Route path="favoriteProducts" element={<FavoriteProducts />} />
+              <Route path="setting" element={<SettingUser />} />
+            </Route>
           </Routes>
           <Basket />
         </BasketContext.Provider>

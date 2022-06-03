@@ -1,5 +1,5 @@
 .product {
-  margin: 40px 5%;
+  margin: 40px 10%;
   display: grid;
   grid-template-columns: 230px auto;
   justify-content: start;
@@ -43,7 +43,7 @@
 
 .items_list {
   margin-top: 2px;
-  width: 75vw;
+  width: 70vw;
   padding: 10px;
   display: grid;
   flex-wrap: wrap;

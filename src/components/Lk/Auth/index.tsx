@@ -1,16 +1,24 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ReactSVG } from "react-svg";
-import jwt_decode from 'jwt-decode';
+import jwt_decode from "jwt-decode";
 import * as API from "../../../utils/api";
 import styles from "./Auth.module.css";
 import vk from "./vk.svg";
 import google from "./google.svg";
 import loginSvg from "./login.svg";
+import { useNavigate } from "react-router-dom";
 
-interface Props{
-  setDataAuth: (e:API$AuthData) => void
-}
-const Auth: React.FC<Props> = ({setDataAuth}) => {
+const Auth: React.FC = () => {
+  const navigate = useNavigate();
+  
+  
+  useEffect(() => {
+    const dataAuth = localStorage?.accessToken && jwt_decode(localStorage?.accessToken);
+    if (dataAuth && new Date(dataAuth?.exp || 0) > new Date()) {
+      navigate(`/lk/setting`);
+    }
+  }, [])
+
   const login = useRef() as React.MutableRefObject<HTMLInputElement>;
   const password = useRef() as React.MutableRefObject<HTMLInputElement>;
 
@@ -23,48 +31,50 @@ const Auth: React.FC<Props> = ({setDataAuth}) => {
     if (res?.error) {
       alert(res.error);
     } else {
-      setDataAuth(jwt_decode(res.accessToken))
+      navigate(`/lk/setting`);
       localStorage.accessToken = res.accessToken;
     }
   };
 
   return (
-    <div className={styles.auth}>
-      <h3 className={styles.title}>
-        Войти или
-        <br /> Зарегестрироваться
-      </h3>
-      <div>
-        <input
-          ref={login}
-          className={styles.input}
-          type="text"
-          placeholder="Почту"
-        />
-        <input
-          ref={password}
-          className={styles.input}
-          type="password"
-          placeholder="Пароль"
-        />
+    <main className={styles.mainBlock}>
+      <div className={styles.auth}>
+        <h3 className={styles.title}>
+          Войти или
+          <br /> Зарегестрироваться
+        </h3>
+        <div>
+          <input
+            ref={login}
+            className={styles.input}
+            type="text"
+            placeholder="Почту"
+          />
+          <input
+            ref={password}
+            className={styles.input}
+            type="password"
+            placeholder="Пароль"
+          />
+        </div>
+        <p>
+          Если вы <span>не были зарегестрированы</span>, то автоматически{" "}
+          <span>создаться</span> ваша учетная запись
+        </p>
+        <div className={styles.block_buttons}>
+          <button className={styles.button_addition}>
+            <img src={vk} alt="" />
+          </button>
+          <button className={styles.button_addition}>
+            <img src={google} alt="" />
+          </button>
+          <button onClick={auth} className={styles.login}>
+            Войти
+            <img src={loginSvg} alt="" />
+          </button>
+        </div>
       </div>
-      <p>
-        Если вы <span>не были зарегестрированы</span>, то автоматически{" "}
-        <span>создаться</span> ваша учетная запись
-      </p>
-      <div className={styles.block_buttons}>
-        <button className={styles.button_addition}>
-          <img src={vk} alt="" />
-        </button>
-        <button className={styles.button_addition}>
-          <img src={google} alt="" />
-        </button>
-        <button onClick={auth} className={styles.login}>
-          Войти
-          <img src={loginSvg} alt="" />
-        </button>
-      </div>
-    </div>
+    </main>
   );
 };
 

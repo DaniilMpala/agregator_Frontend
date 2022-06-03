@@ -188,7 +188,7 @@ const Product: React.FC = () => {
         <SocialNetwork vertical={false} className={styles.social} />
       </div>
       <div>
-        {Object.keys(products).length === 0 && <Preloader style={{height: "100%", width: "75vw"}} />}
+        {Object.keys(products).length === 0 && <Preloader style={{height: "100%", width: "70vw"}} />}
         {Object.keys(products).map((v, i) => (
           <div className={styles.items}>
             <h2 className={styles.items__title}>{v}</h2>

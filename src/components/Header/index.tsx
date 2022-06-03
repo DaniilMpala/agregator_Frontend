@@ -48,7 +48,7 @@ const Header: React.FC = () => {
         placeHolder="Поиск в продуктах"
       />
       <Navbar />
-      <NavLink to="lk">
+      <NavLink to="lk/auth">
         <ReactSVG
           src={iconLk}
           beforeInjection={(svg: {
