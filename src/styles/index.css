@@ -243,6 +243,10 @@
 *{
   box-sizing: border-box;
 }
+main{
+  background-repeat: space;
+  background-image: url(./bg_desc.svg);
+}
 
 body, input, button {
   margin: 0;
@@ -252,7 +256,6 @@ body, input, button {
   font-size: 14px;
   color: var(--text);
   outline: none;
-  background: none;
   border: none;
 }
 button{

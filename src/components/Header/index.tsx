@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Logo from "../Components/Logo";
 import Navbar from "./Navbar";
 
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import "./Header.css";
 import MiniSearchInput from "../Components/MiniSearchInput";
@@ -48,14 +48,16 @@ const Header: React.FC = () => {
         placeHolder="Поиск в продуктах"
       />
       <Navbar />
-      <ReactSVG
-        src={iconLk}
-        beforeInjection={(svg: {
-          classList: { add: (arg0: string) => void };
-        }) => {
-          svg.classList.add("header_icon_lk");
-        }}
-      />
+      <NavLink to="lk">
+        <ReactSVG
+          src={iconLk}
+          beforeInjection={(svg: {
+            classList: { add: (arg0: string) => void };
+          }) => {
+            svg.classList.add("header_icon_lk");
+          }}
+        />
+      </NavLink>
     </header>
   );
 };

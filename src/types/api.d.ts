@@ -2,14 +2,17 @@
 type API$ListItems = Record<API$ProductInfo[]>
 type API$ReceivedProductsInfoList = Record<string, API$ListItems[]>
 // type API$ReceivedProductsInfo = Record<number, API$ProductInfo[]>
-
+interface API$AuthData {
+  login: string
+  exp: string
+}
 interface API$ProductInfo {
   img: string | null;
   description: string;
   value: number;
   promoPercent: number;
 
-  _id: number;
+  _id: string;
 
   valueSymbol: number;
   symbol: string;

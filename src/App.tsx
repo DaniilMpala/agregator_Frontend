@@ -4,6 +4,7 @@ import Basket from "./components/Components/Basket";
 
 import Header from "./components/Header";
 import Index from "./components/Index";
+import Lk from "./components/Lk";
 import Pharmacies from "./components/Pharmacies";
 import Product from "./components/Product";
 import { BasketContext, initialState, BasketReducer } from "./Contexts/Basket";
@@ -22,6 +23,7 @@ const App: React.FC = () => {
             <Route path="/" element={<Index />} />
             <Route path="products" element={<Product />} />
             <Route path="pharmacies" element={<Pharmacies />} />
+            <Route path="lk" element={<Lk />} />
           </Routes>
           <Basket />
         </BasketContext.Provider>

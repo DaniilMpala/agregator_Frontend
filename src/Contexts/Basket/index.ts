@@ -14,7 +14,7 @@ export enum BasketActionsTypes {
 }
 
 export interface ProductsBasket {
-    _id: number;
+    _id: string;
     img: string | null
     description: string
     value: number

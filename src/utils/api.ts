@@ -11,3 +11,11 @@ export const loadItem = (data: API$FilterRequestLoadItem): Promise<API$ReceivedP
 export const loadChoiceBuyers = (): Promise<API$ListItems[]> => {
   return post("api/product/getChoiceBuyers");
 };
+
+export const sendRequestUpdateDemandItem = (data: {_id: string}) => {
+  return post("api/product/updateDemandItem", data);
+};
+
+export const auth = (data: {login: string, password:string}) => {
+  return post("api/lk/auth", data);
+};

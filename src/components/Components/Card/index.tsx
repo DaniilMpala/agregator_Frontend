@@ -7,6 +7,7 @@ import defaultImg from "./defaultImg.svg";
 import addCorzina from "./addCorzina.svg";
 import { BasketContext, BasketActionsTypes } from "../../../Contexts/Basket";
 import { month } from "../../../global/variable";
+import { sendRequestUpdateDemandItem } from "../../../utils/api";
 
 const LoveBox: React.FC = () => {
   return (
@@ -54,7 +55,11 @@ const Card: React.FC<Props> = ({ productsInfos }) => {
       type: BasketActionsTypes.ADD_ITEM,
       payload: item,
     });
+
+    sendRequestUpdateDemandItem({_id: cardCurrent._id})
   };
+
+
 
   return (
     <div ref={refRestartAnimation} className={styles.card}>

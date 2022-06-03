@@ -5888,6 +5888,11 @@ jss@10.9.0, jss@^10.5.1:
     array-includes "^3.1.4"
     object.assign "^4.1.2"
 
+jwt-decode@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-3.1.2.tgz#3fb319f3675a2df0c2895c8f5e9fa4b67b04ed59"
+  integrity sha512-UfpWE/VZn0iP50d8cz9NrZLM9lSWhcJ+0Gt/nm4by88UL+J1SiKN8/5dkjMmbEzwL2CAe+67GsegCbIKtbp75A==
+
 kdt@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/kdt/-/kdt-0.1.0.tgz#d54aadf92586c59b441519b4461b39fb7c5528f3"
@@ -7450,6 +7455,13 @@ react-is@^16.13.1, react-is@^16.7.0:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
+
+react-jwt@^1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/react-jwt/-/react-jwt-1.1.6.tgz#cbf9250e57189ef1aed4b5de92315ae446a6021f"
+  integrity sha512-Yp+FmwkTvYUuO5gu6sFApLXFuMAIAlh1NEfxcB2EGnmS1chKqXXv77vp23IphV1UpSyMtm0wrphUZfDSr8GiSA==
+  optionalDependencies:
+    fsevents "^2.3.2"
 
 react-lifecycles-compat@^3.0.4:
   version "3.0.4"

@@ -24,7 +24,7 @@ const Index: React.FC = () => {
     loadChoiceBuyers();
   }, []);
   return (
-    <main>
+    <div>
       <div className={styles.block_main}>
         <p className={styles.title}>Товары по лучшим ценам</p>
         <p className={styles.desc}>
@@ -42,7 +42,7 @@ const Index: React.FC = () => {
         <SocialNetwork vertical={true} className={styles.social} />
         <img className={styles.main_img} src={bg} alt="" />
       </div>
-      <div className={styles.block_desc}>
+      <main className={styles.block_desc}>
         <div className={styles.block_desc_right}>
           <h3 className={styles.buyers_choice}>Выбор покупателей</h3>
           <div className={styles.buyers_choice_cards}>
@@ -66,8 +66,8 @@ const Index: React.FC = () => {
           </div>
           <img src={basket} alt="" />
         </div>
-      </div>
-    </main>
+      </main>
+    </div>
   );
 };
 

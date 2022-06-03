@@ -51,9 +51,6 @@
 }
 
 .block_desc {
-    background-image: url(./bg_desc.svg);
-    background-repeat: space;
-
     display: flex;
     flex-direction: column;
 

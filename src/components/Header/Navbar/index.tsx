@@ -9,7 +9,7 @@ const slideActive = classNames({
   [styles.slide_link]: true,
 });
 
-const classNameProp = {
+export const classNameProp = {
   className: ({ isActive }: { isActive: boolean }) =>
     isActive ? slideActive : styles.slide_link,
 };

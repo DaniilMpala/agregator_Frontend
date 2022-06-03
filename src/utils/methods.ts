@@ -3,6 +3,7 @@ export const post = async (path: string, data?: any, options?: RequestInit) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "authorization": localStorage?.accessToken
     },
     body: JSON.stringify(data),
     ...options,
