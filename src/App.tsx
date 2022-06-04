@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Basket from "./components/Components/Basket";
 
@@ -9,31 +9,55 @@ import FavoriteProducts from "./components/Lk/FavoriteProducts";
 import Pharmacies from "./components/Pharmacies";
 import Product from "./components/Product";
 import { BasketContext, initialState, BasketReducer } from "./Contexts/Basket";
-import Auth from "./components/Lk/Auth";
+import AuthComponent from "./components/Lk/Auth";
+import FavoriteShop from "./components/Lk/FavoriteShop";
+import HistoryBasket from "./components/Lk/HistoryBasket";
+import { AuthActionsTypes, AuthContext, AuthReducer, initialStateAuth } from "./Contexts/Auth";
+
 
 const App: React.FC = () => {
   const [baskettState, basketDispatch] = useReducer(
     BasketReducer,
     initialState
   );
+  const [Auth, AuthDispath] = useReducer(AuthReducer, initialStateAuth);
 
+  useEffect(() => {
+    AuthDispath({
+      type: AuthActionsTypes.UPDATE_AUTH,
+      payload: initialStateAuth,
+    });
+
+    const timer = setInterval(()=>{
+      AuthDispath({
+        type: AuthActionsTypes.UPDATE_AUTH,
+        payload: initialStateAuth,
+      });
+    }, 1000*60*30)
+
+    return clearInterval(timer)
+  }, [])
   return (
     <div className="App">
       <BrowserRouter>
-        <BasketContext.Provider value={[baskettState, basketDispatch]}>
-          <Header />
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="products" element={<Product />} />
-            <Route path="pharmacies" element={<Pharmacies />} />
-            <Route path="lk">
-              <Route path="auth" element={<Auth />}/>
-              <Route path="favoriteProducts" element={<FavoriteProducts />} />
-              <Route path="setting" element={<SettingUser />} />
-            </Route>
-          </Routes>
-          <Basket />
-        </BasketContext.Provider>
+        <AuthContext.Provider value={[Auth, AuthDispath]}>
+          <BasketContext.Provider value={[baskettState, basketDispatch]}>
+            <Header />
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="products" element={<Product />} />
+              <Route path="pharmacies" element={<Pharmacies />} />
+              <Route path="lk">
+                <Route path="auth" element={<AuthComponent />} />
+                <Route path="favoriteProducts" element={<FavoriteProducts />} />
+                <Route path="setting" element={<SettingUser />} />
+                <Route path="favoriteShop" element={<FavoriteShop />} />
+                <Route path="historyBasket" element={<HistoryBasket />} />
+              </Route>
+            </Routes>
+            <Basket />
+          </BasketContext.Provider>
+        </AuthContext.Provider>
       </BrowserRouter>
     </div>
   );

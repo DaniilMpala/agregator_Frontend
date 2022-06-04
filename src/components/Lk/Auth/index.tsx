@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { ReactSVG } from "react-svg";
 import jwt_decode from "jwt-decode";
 import * as API from "../../../utils/api";
@@ -7,17 +7,17 @@ import vk from "./vk.svg";
 import google from "./google.svg";
 import loginSvg from "./login.svg";
 import { useNavigate } from "react-router-dom";
+import { AuthActionsTypes, AuthContext } from "../../../Contexts/Auth";
 
 const Auth: React.FC = () => {
   const navigate = useNavigate();
-  
-  
+  const [Auth, AuthDispath] = useContext(AuthContext);
+
   useEffect(() => {
-    const dataAuth = localStorage?.accessToken && jwt_decode(localStorage?.accessToken);
-    if (dataAuth && new Date(dataAuth?.exp || 0) > new Date()) {
+    if (Auth.auth) {
       navigate(`/lk/setting`);
     }
-  }, [])
+  }, []);
 
   const login = useRef() as React.MutableRefObject<HTMLInputElement>;
   const password = useRef() as React.MutableRefObject<HTMLInputElement>;
@@ -31,8 +31,16 @@ const Auth: React.FC = () => {
     if (res?.error) {
       alert(res.error);
     } else {
+      AuthDispath({
+        type: AuthActionsTypes.AUTHORIZATION,
+        payload: {
+          accessToken: res.accessToken,
+          exp: "",
+          auth: true,
+        },
+      });
+
       navigate(`/lk/setting`);
-      localStorage.accessToken = res.accessToken;
     }
   };
 

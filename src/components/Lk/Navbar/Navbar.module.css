@@ -2,10 +2,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  justify-content: space-between;
   width: fit-content;
-
-  /* grid */
   justify-self: center;
 }
 
@@ -14,13 +11,13 @@
   background-color: var(--primary);
   border-radius: 6px;
   font-weight: 600;
-font-size: 20px;
-color: var(--gray);
-padding: 10px 0;
-margin: 4px 0;
-width: 100%;
-text-align: center;
-width: 230px;
+  font-size: 20px;
+  color: var(--gray);
+  padding: 10px 0;
+  margin: 4px 0;
+  width: 100%;
+  text-align: center;
+  width: 230px;
 }
 
 .slide_link:hover {
@@ -35,6 +32,6 @@ width: 230px;
   transition: all 500ms cubic-bezier(0.22, 0.61, 0.36, 1);
   color: var(--action);
   background: var(--bg_button);
-  border-radius: 8px;
+  border-radius: 6px;
   box-shadow: var(--main-shadow)
 }
