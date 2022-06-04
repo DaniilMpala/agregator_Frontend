@@ -19,3 +19,11 @@ export const sendRequestUpdateDemandItem = (data: {_id: string}) => {
 export const auth = (data: {login: string, password:string}) => {
   return post("api/lk/auth", data);
 };
+
+export const getDataUserSetting = () => {
+  return post("api/lk/getDataUserSetting");
+};
+
+export const changeNotifyUser = (data: {type: string, value:any}) => {
+  return post("api/lk/changeNotifyUser", data);
+};
