@@ -32,6 +32,12 @@
     right: 13px;
     cursor: pointer;
 }
+.love_favoit {
+    fill: var(--red);
+}
+.love_none_favoit {
+    fill: var(--not-active);
+}
 
 .discount {
     transform: rotate(-30deg);

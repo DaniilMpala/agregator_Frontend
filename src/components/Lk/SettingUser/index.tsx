@@ -20,7 +20,7 @@ interface IUserInfo {
 const SettingUser: React.FC = () => {
   const navigate = useNavigate();
   const [Auth, AuthDispath] = useContext(AuthContext);
-  const [UserInfo, setUserInfo] = useState({
+  const [UserInfo, setUserInfo] = useState<API$GetUserSetting>({
     loaded: false,
     geolocation: "",
     notifyFavoriteProducts: false,

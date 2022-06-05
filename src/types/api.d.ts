@@ -2,6 +2,19 @@
 type API$ListItems = Record<API$ProductInfo[]>
 type API$ReceivedProductsInfoList = Record<string, API$ListItems[]>
 // type API$ReceivedProductsInfo = Record<number, API$ProductInfo[]>
+interface API$Authorization{
+  lastSaveBasket?: Record<string, API$ListItems[]>
+  accessToken?: string
+
+  error?: string
+}
+interface API$GetUserSetting{
+  loaded?: boolean;
+  geolocation: string;
+  notifyFavoriteProducts: boolean;
+
+  auth?: boolean
+}
 interface API$AuthData {
   login: string
   exp: string
@@ -28,6 +41,7 @@ interface API$ProductInfo {
   oldValue?: null | number
   stockValue?: null | string
 
+  favorit: boolean
 }
 
 interface API$Filter {

@@ -34,7 +34,7 @@ const Auth: React.FC = () => {
       AuthDispath({
         type: AuthActionsTypes.AUTHORIZATION,
         payload: {
-          accessToken: res.accessToken,
+          accessToken: res.accessToken || "",
           exp: "",
           auth: true,
         },

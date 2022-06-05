@@ -88,7 +88,7 @@ const Basket: React.FC = () => {
     return (
       <div>
         <div className={styles.shop_label}>
-          <img src={baskettState[shopLabel][0].shopsImg} alt="" />
+          <img src={"/"+baskettState[shopLabel][0].shopsImg} alt="" />
           <span>{shopLabel}</span>
         </div>
 

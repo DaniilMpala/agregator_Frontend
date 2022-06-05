@@ -18,7 +18,7 @@ const FavoriteShop: React.FC = () => {
   return (
     <main className={styles.main}>
       <Navbar />
-      favoriteShop
+      FavoriteShop
     </main>
   );
 };
