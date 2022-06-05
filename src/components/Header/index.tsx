@@ -18,16 +18,16 @@ const Header: React.FC = () => {
     String(getUrlParams()["search"] || "")
   );
 
-  const scrollHandler = (e: any) => {
-    console.log(e);
-    // const bcr = headerRef.current.getBoundingClientRect()
-    // console.log(bcr)
-  };
+  // const scrollHandler = (e: any) => {
+  //   console.log(e);
+  //   // const bcr = headerRef.current.getBoundingClientRect()
+  //   // console.log(bcr)
+  // };
 
-  useEffect(() => {
-    window.addEventListener("scroll", scrollHandler, false);
-    return () => window.addEventListener("scroll", scrollHandler, false);
-  }, []);
+  // useEffect(() => {
+  //   window.addEventListener("scroll", scrollHandler, false);
+  //   return () => window.addEventListener("scroll", scrollHandler, false);
+  // }, []);
 
   const updateSerachText = (e: any) => {
     replaceUri("search", e ? [e] : []);

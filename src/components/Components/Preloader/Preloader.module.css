@@ -28,6 +28,7 @@
     animation: animation 1.2s linear infinite;
 }
 
+
 .animation div:nth-child(1) {
     top: 8px;
     left: 8px;
@@ -81,7 +82,63 @@
     left: 56px;
     animation-delay: -1.6s;
 }
+.animation_small {
+    display: inline-block;
+    position: relative;
+    width: 32px;
+    height: 32px;
+}
+.animation_small div {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--action);
+    animation: animation 1.2s linear infinite;
+}
+.animation_small div:nth-child(2) {
+    left: 12px;
+    animation-delay: -0.4s;
+}
 
+.animation_small div:nth-child(3) {
+    left: 24px;
+    animation-delay: -0.8s;
+}
+
+.animation_small div:nth-child(4) {
+    top: 12px;
+    animation-delay: -0.4s;
+}
+
+.animation_small div:nth-child(5) {
+    top: 12px;
+    left: 12px;
+    animation-delay: -0.8s;
+}
+
+.animation_small div:nth-child(6) {
+    top: 12px;
+    left: 24px;
+    animation-delay: -1.2s;
+}
+
+.animation_small div:nth-child(7) {
+    top: 24px;
+    animation-delay: -0.8s;
+}
+
+.animation_small div:nth-child(8) {
+    top: 24px;
+    left: 12px;
+    animation-delay: -1.2s;
+}
+
+.animation_small div:nth-child(9) {
+    top: 24px;
+    left: 24px;
+    animation-delay: -1.6s;
+}
 @keyframes animation {
     0%, 100% {
         opacity: 1;

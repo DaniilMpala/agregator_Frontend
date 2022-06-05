@@ -8,10 +8,12 @@ import google from "./google.svg";
 import loginSvg from "./login.svg";
 import { useNavigate } from "react-router-dom";
 import { AuthActionsTypes, AuthContext } from "../../../Contexts/Auth";
+import Preloader from "../../Components/Preloader";
 
 const Auth: React.FC = () => {
   const navigate = useNavigate();
   const [Auth, AuthDispath] = useContext(AuthContext);
+  const [loadingAuth, setLoadingAuth] = useState(false);
 
   useEffect(() => {
     if (Auth.auth) {
@@ -23,6 +25,7 @@ const Auth: React.FC = () => {
   const password = useRef() as React.MutableRefObject<HTMLInputElement>;
 
   const auth = async () => {
+    setLoadingAuth(true);
     let res = await API.auth({
       login: login.current.value,
       password: password.current.value,
@@ -42,6 +45,8 @@ const Auth: React.FC = () => {
 
       navigate(`/lk/setting`);
     }
+
+    setLoadingAuth(false);
   };
 
   return (
@@ -76,10 +81,14 @@ const Auth: React.FC = () => {
           <button className={styles.button_addition}>
             <img src={google} alt="" />
           </button>
-          <button onClick={auth} className={styles.login}>
-            Войти
-            <img src={loginSvg} alt="" />
-          </button>
+          {!loadingAuth ? (
+            <button onClick={auth} className={styles.login}>
+              Войти
+              <img src={loginSvg} alt="" />
+            </button>
+          ) : (
+            <Preloader sizeCircleAnimation={"small"} className={styles.preloading}  />
+          )}
         </div>
       </div>
     </main>

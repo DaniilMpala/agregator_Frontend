@@ -92,3 +92,8 @@ p span {
     height: 47px;
 
 }
+.preloading{
+    background: var(--bg_button);
+    height: 47px;
+    margin: 0;
+}
