@@ -56,20 +56,22 @@ const Auth: React.FC = () => {
           Войти или
           <br /> Зарегестрироваться
         </h3>
-        <div>
+        <form>
           <input
             ref={login}
             className={styles.input}
             type="text"
             placeholder="Почту"
+            autoComplete="email"
           />
           <input
             ref={password}
             className={styles.input}
             type="password"
             placeholder="Пароль"
+            autoComplete="password"
           />
-        </div>
+        </form>
         <p>
           Если вы <span>не были зарегестрированы</span>, то автоматически{" "}
           <span>создаться</span> ваша учетная запись

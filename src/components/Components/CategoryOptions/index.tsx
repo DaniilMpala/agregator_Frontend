@@ -81,6 +81,7 @@ const CategoryOptions: React.FC<Props> = ({
         itemSize={250 + 16}
         layout="horizontal"
         width={3000}
+        onWheel={(e: any) => console.log(e)}
       >
         {сolumns}
       </FixedSizeList>

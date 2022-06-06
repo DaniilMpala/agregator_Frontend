@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import Logo from "../Components/Logo";
 import Navbar from "./Navbar";
 
-import { NavLink, useNavigate } from "react-router-dom";
-
-import "./Header.css";
+import { useNavigate } from "react-router-dom";
+import styles from "./Header.module.css";
 import MiniSearchInput from "../Components/MiniSearchInput";
 import { getUrlParams, replaceUri } from "../../global/functions";
 
-import iconLk from "./iconLk.svg";
-import { ReactSVG } from "react-svg";
 
 const Header: React.FC = () => {
   // const headerRef = useRef() as unknown as React.MutableRefObject<HTMLElement>
@@ -43,21 +40,12 @@ const Header: React.FC = () => {
       <MiniSearchInput
         setTextSearch={updateSerachText}
         textSearch={searchText}
-        pixelImagesSearchClass="Header_input__pixelImages"
-        className="Header_input"
+        pixelImagesSearchClass={styles.Header_input__pixelImages}
+        className={styles.Header_input}
         placeHolder="Поиск в продуктах"
       />
       <Navbar />
-      <NavLink to="lk/auth">
-        <ReactSVG
-          src={iconLk}
-          beforeInjection={(svg: {
-            classList: { add: (arg0: string) => void };
-          }) => {
-            svg.classList.add("header_icon_lk");
-          }}
-        />
-      </NavLink>
+      
     </header>
   );
 };

@@ -31,7 +31,7 @@ const ReanderShop: React.FC<Props> = ({shopLabel, data, allowedDeleteItem = true
         <span>{shopLabel}</span>
       </div>
 
-      <div>{data.map((item:ProductsBasket) => <ItemRender allowedDeleteItem={allowedDeleteItem} item={item} />)}</div>
+      <div>{data.map((item:ProductsBasket, i) => <ItemRender key={i} allowedDeleteItem={allowedDeleteItem} item={item} />)}</div>
     </div>
   );
 };

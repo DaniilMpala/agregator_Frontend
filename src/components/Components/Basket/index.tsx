@@ -33,8 +33,11 @@ const Basket: React.FC = () => {
   };
 
   const closeBasket = () => {
-    refCloseBasket.current.className = styles.close_basket
-    setTimeout(() => setOpen(false), 300)
+    if(refCloseBasket?.current){
+      refCloseBasket.current.className = styles.close_basket
+      setTimeout(() => setOpen(false), 300)
+    }
+      
   }
   const openBasket = () => {
     refShodowButtonIcon.current.className = styles.basket_icon_close
@@ -59,7 +62,7 @@ const Basket: React.FC = () => {
 
 
   return (
-    <div onMouseLeave={closeBasket}>
+    <div>
       {!isOpen ? (
         <button
           onClick={openBasket}
@@ -69,7 +72,7 @@ const Basket: React.FC = () => {
           <img src={Object.keys(baskettState).length > 0 ? basketMoreItems :  BasketSvg} alt="" />
         </button>
       ) : (
-        <div ref={refCloseBasket} className={styles.open_basket}>
+        <div onPointerLeave={closeBasket} ref={refCloseBasket} className={styles.open_basket}>
           <div className={styles.basket_info}>
             <div className={styles.logo}>
               <Logo />
@@ -87,7 +90,7 @@ const Basket: React.FC = () => {
                 <img src={BasketNoItems} alt="" />
               </div>
             ) : (
-              Object.keys(baskettState).map((shopLabel:string) => <ReanderShop data={baskettState[shopLabel]} shopLabel={shopLabel} />)
+              Object.keys(baskettState).map((shopLabel:string, i) => <ReanderShop key={i} data={baskettState[shopLabel]} shopLabel={shopLabel} />)
             )}
           </div>
           <div className={styles.button_list_addition}>

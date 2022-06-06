@@ -10,7 +10,12 @@ import {
 } from "../../../Contexts/Auth";
 import useAsyncEffect from "../../../hooks/useAsyncEffect";
 import * as API from "../../../utils/api";
-import { BasketActionsTypes, BasketContext, BasketState, convertBasketInArray } from "../../../Contexts/Basket";
+import {
+  BasketActionsTypes,
+  BasketContext,
+  BasketState,
+  convertBasketInArray,
+} from "../../../Contexts/Basket";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Preloader from "../../Components/Preloader";
 import ReanderShop from "../../Components/Basket/ReanderShop";
@@ -58,7 +63,7 @@ const HistoryBasket: React.FC = () => {
   };
 
   const deleteSaveBasket = async (index: number) => {
-    const {auth, result} = await API.updateDataSaveBasket({index});
+    const { auth, result } = await API.updateDataSaveBasket({ index });
     if (!auth) {
       AuthDispath({
         type: AuthActionsTypes.LOGOUT,
@@ -66,14 +71,14 @@ const HistoryBasket: React.FC = () => {
       });
       navigate(`/lk/auth`);
     } else if (result) {
-      savedBaskets.splice(index, 1)
-      setSavedBaskets([...savedBaskets])
-    }else{
-      alert("Произошла не предвиденная ошибка :(")
+      savedBaskets.splice(index, 1);
+      setSavedBaskets([...savedBaskets]);
+    } else {
+      alert("Произошла не предвиденная ошибка :(");
     }
   };
 
-  const unloadBasket = async (basket:BasketState) => {
+  const unloadBasket = async (basket: BasketState) => {
     basketDispatch({
       type: BasketActionsTypes.LOAD_BASKET,
       payload: await convertBasketInArray(basket),
@@ -81,7 +86,7 @@ const HistoryBasket: React.FC = () => {
   };
 
   const renderBasket = (basket: BasketState, i: number) => (
-    <div className={styles.basket}>
+    <div className={styles.basket} key={i}>
       <div className={stylesBasket.basket_info}>
         <div className={stylesBasket.logo}>
           <Logo />
@@ -93,8 +98,9 @@ const HistoryBasket: React.FC = () => {
         </div>
       </div>
       <div className={stylesBasket.list}>
-        {Object.keys(basket).map((shopLabel: string) => (
+        {Object.keys(basket).map((shopLabel: string, i) => (
           <ReanderShop
+            key={i}
             allowedDeleteItem={false}
             data={basket[shopLabel]}
             shopLabel={shopLabel}
@@ -118,7 +124,10 @@ const HistoryBasket: React.FC = () => {
             className={stylesBasket.button_addition_svg}
           />
         </button>
-        <button onClick={() => unloadBasket(basket)} className={stylesBasket.go}>
+        <button
+          onClick={() => unloadBasket(basket)}
+          className={stylesBasket.go}
+        >
           Выгрузить в корзину
           <ReactSVG src={unload} />
         </button>

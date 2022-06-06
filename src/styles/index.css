@@ -247,6 +247,16 @@ main{
   background-repeat: space;
   background-image: url(./bg_desc.svg);
 }
+header {
+  display: grid;
+  grid-template-columns: max-content auto auto;
+  column-gap: 40px;
+  padding: 0px 10%;
+  align-items: center;
+  box-shadow: var(--main-shadow);
+
+  height: 90px;
+}
 
 body, input, button {
   margin: 0;

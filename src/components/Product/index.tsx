@@ -97,11 +97,9 @@ const Product: React.FC = () => {
     setBrandFilters(brand.map(filterMapper)); //+
     setRangeValue({
       selected: [
-        (parametrsUrlFilter?.price &&
-          Number(parametrsUrlFilter?.price[0])) ||
+        (parametrsUrlFilter?.price && Number(parametrsUrlFilter?.price[0])) ||
           minPrice,
-        (parametrsUrlFilter?.price &&
-          Number(parametrsUrlFilter?.price[1])) ||
+        (parametrsUrlFilter?.price && Number(parametrsUrlFilter?.price[1])) ||
           maxPrice,
       ], //если в поисковой строке уже есть выбранный диапазон то ставим его
       limits: [minPrice, maxPrice],
@@ -158,7 +156,6 @@ const Product: React.FC = () => {
   const setSortedBySelect = (array: OptionSortedBy[]) => {
     setSortedBy(array);
     setTimeout(() => loadItem(), 400);
-    
   };
 
   return (
@@ -166,11 +163,13 @@ const Product: React.FC = () => {
       <div>
         <PriceFilter rangeValue={rangeValue} setRangeValue={setRangeValue} />
         <OptionsList
+          key={1}
           title="Выбор магазина"
           options={marketFilters}
           setOptions={setMarketFilters}
         />
         <OptionsList
+          key={2}
           title="Выбор производителя"
           options={brandFilters}
           setOptions={setBrandFilters}
@@ -188,7 +187,9 @@ const Product: React.FC = () => {
         <SocialNetwork vertical={false} className={styles.social} />
       </div>
       <div>
-        {Object.keys(products).length === 0 && <Preloader style={{height: "100%", width: "70vw"}} />}
+        {Object.keys(products).length === 0 && (
+          <Preloader style={{ height: "100%", width: "70vw" }} />
+        )}
         {Object.keys(products).map((v, i) => (
           <div className={styles.items}>
             <h2 className={styles.items__title}>{v}</h2>
@@ -210,8 +211,8 @@ const Product: React.FC = () => {
               dataLength={products[v].length}
               next={() => loadMoreItem(v)}
               hasMore={true}
-
               loader={<Preloader />}
+              height={500}
             >
               {products[v].map((item: API$ProductInfo[], i) => (
                 <Card key={i} productsInfos={item} />

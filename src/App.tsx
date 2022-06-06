@@ -56,7 +56,6 @@ const App: React.FC = () => {
                 <Route path="auth" element={<AuthComponent />} />
                 <Route path="favoriteProducts" element={<FavoriteProducts />} />
                 <Route path="setting" element={<SettingUser />} />
-                
                 <Route path="historyBasket" element={<HistoryBasket />} />
               </Route>
             </Routes>

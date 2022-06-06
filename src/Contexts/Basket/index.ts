@@ -56,7 +56,6 @@ export const BasketReducer = (state: BasketState, action: BasketAction) => {
     switch (action.type) {
         case BasketActionsTypes.ADD_ITEM:
             console.log("Добавим в корзину")
-            console.log(action.payload)
             for (const Item of action.payload) {
                 if (!(Item.titleShops in state)) state[Item.titleShops] = []
 
@@ -74,7 +73,6 @@ export const BasketReducer = (state: BasketState, action: BasketAction) => {
 
             saveInStorage(state)
 
-            console.log(state)
             return { ...state }
         case BasketActionsTypes.LOAD_BASKET:
             console.log("LOAD_BASKET в корзину")

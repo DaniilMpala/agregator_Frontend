@@ -1,0 +1,10 @@
+
+.Header_input__pixelImages::after{
+  top: 19px;
+  width: 20px;
+  height: 20px;
+}
+.Header_input{
+  padding: 16px 25px 16px 50px;
+  font-size: 18px;
+}
