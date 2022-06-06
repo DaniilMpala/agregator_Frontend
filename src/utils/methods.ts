@@ -1,5 +1,5 @@
 export const post = async (path: string, data?: any, options?: RequestInit) => {
-  const fetchedData = await fetch("http://localhost:3000/"+path, {
+  const fetchedData = await fetch(`${window.location.origin}/${path}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
