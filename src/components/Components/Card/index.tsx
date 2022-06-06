@@ -64,7 +64,7 @@ const Card: React.FC<Props> = ({ productsInfos }) => {
   const addInBasket = (item: API$ProductInfo) => {
     basketDispatch({
       type: BasketActionsTypes.ADD_ITEM,
-      payload: item,
+      payload: [item],
     });
 
     sendRequestUpdateDemandItem({ _id: cardCurrent._id });

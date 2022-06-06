@@ -41,7 +41,7 @@
     animation-timing-function: cubic-bezier(.48, .22, .35, 1);
 }
 
-.open_backet {
+.open_basket {
     position: fixed;
 
     width: 377px;
@@ -53,7 +53,7 @@
     animation-timing-function: cubic-bezier(.48, .22, .35, 1);
 }
 
-.close_backet {
+.close_basket {
     position: fixed;
 
     width: 377px;
@@ -211,8 +211,12 @@
 
 }
 
-.button_addition_svg path {
+.button_addition:disabled .button_addition_svg path {
     fill: var(--not-active);
+}
+
+.button_addition_svg path {
+    fill: var(--gray);
 }
 
 .button_addition_svg {

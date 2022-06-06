@@ -32,14 +32,11 @@ const Navbar: React.FC = () => {
       <NavLink {...classNameProp} to="/lk/setting">
         Настройки
       </NavLink>
-      <NavLink {...classNameProp} to="/lk/favoriteShop">
-        Любимые магазины
-      </NavLink>
       <NavLink {...classNameProp} to="/lk/favoriteProducts">
         Любимые товары
       </NavLink>
       <NavLink {...classNameProp} to="/lk/historyBasket">
-        История чеков
+        Сохраненные корзины
       </NavLink>
       <button onClick={logOut} className={styles.slide_link} >Выйти</button>
     </div>

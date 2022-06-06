@@ -2,6 +2,7 @@
 type API$ListItems = Record<API$ProductInfo[]>
 type API$ReceivedProductsInfoList = Record<string, API$ListItems[]>
 // type API$ReceivedProductsInfo = Record<number, API$ProductInfo[]>
+type API$ISaveBasketInProfile = Record<string, string[]>
 interface API$Authorization{
   lastSaveBasket?: Record<string, API$ListItems[]>
   accessToken?: string
@@ -14,6 +15,14 @@ interface API$GetUserSetting{
   notifyFavoriteProducts: boolean;
 
   auth?: boolean
+}
+interface API$GetUserSaveBasket{
+  data: BasketState[]
+  auth: boolean
+}
+interface API$GetUserFavoriteProducts{
+  data: ProductInfo[]
+  auth: boolean
 }
 interface API$AuthData {
   login: string

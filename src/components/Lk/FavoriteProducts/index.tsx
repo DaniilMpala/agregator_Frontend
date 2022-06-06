@@ -4,7 +4,7 @@ import * as API from "../../../utils/api";
 import styles from "./FavoriteProducts.module.css";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Navbar from "../Navbar";
-import { AuthContext } from "../../../Contexts/Auth";
+import { AuthActionsTypes, AuthContext, initialStateAuth } from "../../../Contexts/Auth";
 import Card from "../../Components/Card";
 import useAsyncEffect from "../../../hooks/useAsyncEffect";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -12,8 +12,8 @@ import Preloader from "../../Components/Preloader";
 
 const FavoriteProducts: React.FC = () => {
   const navigate = useNavigate();
-  const [Auth] = useContext(AuthContext);
   const [products, setProduct] = useState<API$ListItems>([]);
+  const [Auth, AuthDispath] = useContext(AuthContext);
   useAsyncEffect(async () => {
     if (!Auth.auth) {
       navigate(`/lk/auth`);
@@ -23,10 +23,17 @@ const FavoriteProducts: React.FC = () => {
   }, []);
 
   const loadMoreItem = async () => {
-    const Items = await API.getDataUserFavoriteProducts({
+    const data = await API.getDataUserFavoriteProducts({
       skip: products.length,
     });
-    setProduct([...products, ...Items]);
+    if (!data.auth) {
+      AuthDispath({
+        type: AuthActionsTypes.LOGOUT,
+        payload: initialStateAuth,
+      });
+      navigate(`/lk/auth`);
+    } else  setProduct([...products, ...data.data]);
+   
   };
   return (
     <main className={styles.main}>

@@ -8,9 +8,8 @@ import SettingUser from "./components/Lk/SettingUser";
 import FavoriteProducts from "./components/Lk/FavoriteProducts";
 import Pharmacies from "./components/Pharmacies";
 import Product from "./components/Product";
-import { BasketContext, initialState, BasketReducer } from "./Contexts/Basket";
+import { BasketContext, initialState, BasketReducer, BasketActionsTypes, BasketState, ProductsBasket } from "./Contexts/Basket";
 import AuthComponent from "./components/Lk/Auth";
-import FavoriteShop from "./components/Lk/FavoriteShop";
 import HistoryBasket from "./components/Lk/HistoryBasket";
 import { AuthActionsTypes, AuthContext, AuthReducer, initialStateAuth } from "./Contexts/Auth";
 
@@ -26,6 +25,12 @@ const App: React.FC = () => {
     AuthDispath({
       type: AuthActionsTypes.UPDATE_AUTH,
       payload: initialStateAuth,
+    });
+
+    let basket :ProductsBasket[] = localStorage.stateBasket && JSON.parse(localStorage.stateBasket)
+    basketDispatch({
+      type: BasketActionsTypes.LOAD_BASKET,
+      payload: basket || [],
     });
 
     const timer = setInterval(()=>{
@@ -51,7 +56,7 @@ const App: React.FC = () => {
                 <Route path="auth" element={<AuthComponent />} />
                 <Route path="favoriteProducts" element={<FavoriteProducts />} />
                 <Route path="setting" element={<SettingUser />} />
-                <Route path="favoriteShop" element={<FavoriteShop />} />
+                
                 <Route path="historyBasket" element={<HistoryBasket />} />
               </Route>
             </Routes>
