@@ -46,3 +46,7 @@ export const getDataSaveBasket = (data: {skip: number}): Promise<API$GetUserSave
 export const updateDataSaveBasket = (data: {index: number}): Promise<{auth: boolean, result: boolean}> => {
   return post("api/lk/deleteSaveBasket", data);
 };
+
+export const updatePasswordUser = (data: {newPassword: string | null}): Promise<{auth: boolean, result: boolean}> => {
+  return post("api/lk/changePasswordUser", data);
+};

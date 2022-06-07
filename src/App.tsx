@@ -8,7 +8,7 @@ import SettingUser from "./components/Lk/SettingUser";
 import FavoriteProducts from "./components/Lk/FavoriteProducts";
 import Pharmacies from "./components/Pharmacies";
 import Product from "./components/Product";
-import { BasketContext, initialState, BasketReducer, BasketActionsTypes, BasketState, ProductsBasket } from "./Contexts/Basket";
+import { BasketContext, initialState, BasketReducer, BasketActionsTypes, BasketState } from "./Contexts/Basket";
 import AuthComponent from "./components/Lk/Auth";
 import HistoryBasket from "./components/Lk/HistoryBasket";
 import { AuthActionsTypes, AuthContext, AuthReducer, initialStateAuth } from "./Contexts/Auth";

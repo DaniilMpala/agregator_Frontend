@@ -24,11 +24,12 @@ import rePost from "../../Components/Basket/rePost.svg";
 import deleteSvg from "../../Components/Basket/delete.svg";
 import unload from "./unload.svg";
 import { ReactSVG } from "react-svg";
+import { repostBasket } from "../../Components/Basket";
 
 const HistoryBasket: React.FC = () => {
   const navigate = useNavigate();
   const [Auth, AuthDispath] = useContext(AuthContext);
-  const [savedBaskets, setSavedBaskets] = useState<BasketState[]>([]);
+  const [savedBaskets, setSavedBaskets] = useState<API$SaveBasket[]>([]);
   const [, basketDispatch] = useContext(BasketContext);
 
   const loadSaveBasket = async () => {
@@ -53,8 +54,8 @@ const HistoryBasket: React.FC = () => {
 
   const summaBasket = (index: number) => {
     let summa = 0;
-    for (const shop in savedBaskets[index])
-      summa += savedBaskets[index][shop].reduce(
+    for (const shop in savedBaskets[index].data)
+      summa += savedBaskets[index].data[shop].reduce(
         (all, cur) => all + cur.value,
         0
       );
@@ -85,24 +86,24 @@ const HistoryBasket: React.FC = () => {
     });
   };
 
-  const renderBasket = (basket: BasketState, i: number) => (
-    <div className={styles.basket} key={i}>
+  const renderBasket = (basket: API$SaveBasket, i: number) => (
+    <div id={`Basket${i}`} className={styles.basket} key={i}>
       <div className={stylesBasket.basket_info}>
         <div className={stylesBasket.logo}>
           <Logo />
         </div>
         <div className={stylesBasket.info}>
           <p>*******Информация*******</p>
-          <p>Дата создания {new Date().toLocaleDateString()}</p>
+          <p>Дата создания {new Date(basket.date).toLocaleDateString()}</p>
           <p>Сумма чека {summaBasket(i)} ₽</p>
         </div>
       </div>
       <div className={stylesBasket.list}>
-        {Object.keys(basket).map((shopLabel: string, i) => (
+        {Object.keys(basket.data).map((shopLabel: string, i) => (
           <ReanderShop
             key={i}
             allowedDeleteItem={false}
-            data={basket[shopLabel]}
+            data={basket.data[shopLabel]}
             shopLabel={shopLabel}
           />
         ))}
@@ -111,6 +112,12 @@ const HistoryBasket: React.FC = () => {
         <button
           title="Поделится корзиной"
           className={stylesBasket.button_addition}
+          onClick={() =>
+            repostBasket(
+              document.getElementById(`Basket${i}`) as HTMLElement,
+              new Date(basket.date).toLocaleDateString()
+            )
+          }
         >
           <ReactSVG src={rePost} className={stylesBasket.button_addition_svg} />
         </button>
@@ -125,7 +132,7 @@ const HistoryBasket: React.FC = () => {
           />
         </button>
         <button
-          onClick={() => unloadBasket(basket)}
+          onClick={() => unloadBasket(basket.data)}
           className={stylesBasket.go}
         >
           Выгрузить в корзину

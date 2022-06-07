@@ -12,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 import {
   BasketActionsTypes,
   BasketContext,
-  ProductsBasket,
 } from "../../../Contexts/Basket";
 import defaultImg from "./defaultImg.svg";
 import Delete from "./delete.svg";
@@ -34,7 +33,7 @@ const ItemRender: React.FC<Props> = ({ item, allowedDeleteItem }) => {
     });
   };
   return (
-    <div className={styles.item}>
+    <div className={allowedDeleteItem ? styles.item : styles.item_no_del}>
       <img
         className={styles.img}
         src={item.img ? item.img : defaultImg}

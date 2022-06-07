@@ -1,4 +1,3 @@
-
 type API$ListItems = Record<API$ProductInfo[]>
 type API$ReceivedProductsInfoList = Record<string, API$ListItems[]>
 // type API$ReceivedProductsInfo = Record<number, API$ProductInfo[]>
@@ -16,8 +15,23 @@ interface API$GetUserSetting{
 
   auth?: boolean
 }
+
+interface ProductsBasket {
+  _id: string;
+  img: string | null
+  description: string
+  value: number
+  shopsImg: string
+  titleShops: string
+  promoEnd: Date
+  promoStart: Date
+}
+interface API$SaveBasket{
+  date: string
+  data: Record<string, ProductsBasket[]>
+}
 interface API$GetUserSaveBasket{
-  data: BasketState[]
+  data: API$SaveBasket[]
   auth: boolean
 }
 interface API$GetUserFavoriteProducts{

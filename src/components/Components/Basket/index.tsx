@@ -13,11 +13,41 @@ import { BasketContext } from "../../../Contexts/Basket";
 import { AuthContext } from "../../../Contexts/Auth";
 import * as API from "../../../utils/api";
 import ReanderShop from "./ReanderShop";
+import html2canvas from "html2canvas";
 
+export const repostBasket = (refObj: HTMLElement, date: string | undefined, refBasket?:React.MutableRefObject<HTMLInputElement>) => {
+  //чтобы сделать скрин надо убрать анимацию при появляение ибо скрин делается в 0мс а не во время анимации
+  if(refBasket?.current)
+    refBasket.current.className = styles.open_basket_no_animation;
+  html2canvas(refObj).then(
+    (canvas) => {
+      const canvasImage = canvas.toDataURL("image/png");
+
+      // this can be used to download any image from webpage to local disk
+      let xhr = new XMLHttpRequest();
+      xhr.responseType = "blob";
+      xhr.onload = function () {
+        let a = document.createElement("a");
+        a.href = window.URL.createObjectURL(xhr.response);
+        a.download = `Basket_${date}.png`;
+        a.style.display = "none";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      };
+      xhr.open("GET", canvasImage); // This is to download the canvas Image
+      xhr.send();
+      
+      if(refBasket?.current)
+        refBasket.current.className = styles.open_basket;
+    }
+  );
+};
 
 const Basket: React.FC = () => {
-  const refCloseBasket = useRef() as React.MutableRefObject<HTMLInputElement>
-  const refShodowButtonIcon = useRef() as React.MutableRefObject<HTMLButtonElement>
+  const refBasket = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const refShodowButtonIcon =
+    useRef() as React.MutableRefObject<HTMLButtonElement>;
   const [baskettState, basketDispatch] = useContext(BasketContext);
   const [Auth] = useContext(AuthContext);
 
@@ -33,33 +63,33 @@ const Basket: React.FC = () => {
   };
 
   const closeBasket = () => {
-    if(refCloseBasket?.current){
-      refCloseBasket.current.className = styles.close_basket
-      setTimeout(() => setOpen(false), 300)
+    if (refBasket?.current) {
+      refBasket.current.className = styles.close_basket;
+      setTimeout(() => setOpen(false), 300);
     }
-      
-  }
+  };
   const openBasket = () => {
-    refShodowButtonIcon.current.className = styles.basket_icon_close
-    setTimeout(() => setOpen(true), 300)
-  }
+    refShodowButtonIcon.current.className = styles.basket_icon_close;
+    setTimeout(() => setOpen(true), 300);
+  };
   const saveBasket = async () => {
-    let tmp:API$ISaveBasketInProfile = {}
+    let tmp: API$ISaveBasketInProfile = {};
     for (const shopTitle in baskettState) {
-      tmp[shopTitle] = baskettState[shopTitle].map(v => v._id)
+      tmp[shopTitle] = baskettState[shopTitle].map((v) => v._id);
     }
 
-    const {result, textMessage} = await API.saveBasketInProfile(tmp)
+    const { result, textMessage } = await API.saveBasketInProfile(tmp);
 
-    alert(textMessage)
+    alert(textMessage);
 
     // if(!result){
     //   alert("Произошла ошибка сохранение корзины :(")
     // }else{
-      
-    // }
-  }
 
+    // }
+  };
+
+  
 
   return (
     <div>
@@ -69,10 +99,20 @@ const Basket: React.FC = () => {
           ref={refShodowButtonIcon}
           className={styles.basket_icon}
         >
-          <img src={Object.keys(baskettState).length > 0 ? basketMoreItems :  BasketSvg} alt="" />
+          <img
+            src={
+              Object.keys(baskettState).length > 0 ? basketMoreItems : BasketSvg
+            }
+            alt=""
+          />
         </button>
       ) : (
-        <div onPointerLeave={closeBasket} ref={refCloseBasket} className={styles.open_basket}>
+        <div
+          onPointerLeave={closeBasket}
+          ref={refBasket}
+          className={styles.open_basket}
+          id="basket"
+        >
           <div className={styles.basket_info}>
             <div className={styles.logo}>
               <Logo />
@@ -90,14 +130,29 @@ const Basket: React.FC = () => {
                 <img src={BasketNoItems} alt="" />
               </div>
             ) : (
-              Object.keys(baskettState).map((shopLabel:string, i) => <ReanderShop key={i} data={baskettState[shopLabel]} shopLabel={shopLabel} />)
+              Object.keys(baskettState).map((shopLabel: string, i) => (
+                <ReanderShop
+                  key={i}
+                  data={baskettState[shopLabel]}
+                  shopLabel={shopLabel}
+                />
+              ))
             )}
           </div>
           <div className={styles.button_list_addition}>
-            <button title="Поделится корзиной" className={styles.button_addition}>
+            <button
+              title="Поделится корзиной"
+              onClick={() => repostBasket(document.getElementById("basket") as HTMLElement, new Date().toLocaleDateString())}
+              className={styles.button_addition}
+            >
               <ReactSVG src={rePost} className={styles.button_addition_svg} />
             </button>
-            <button title="Сохраненеи корзины в вашем профиле" onClick={saveBasket} disabled={!Auth.auth} className={styles.button_addition}>
+            <button
+              title="Сохраненеи корзины в вашем профиле"
+              onClick={saveBasket}
+              disabled={!Auth.auth}
+              className={styles.button_addition}
+            >
               <ReactSVG src={save} className={styles.button_addition_svg} />
             </button>
             {Object.keys(baskettState).length === 0 ? (

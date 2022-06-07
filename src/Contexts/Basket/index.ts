@@ -1,4 +1,5 @@
 import { createContext } from "react";
+import { Interface } from "readline";
 
 interface FetchBasket {
     type: BasketActionsTypes;
@@ -14,16 +15,6 @@ export enum BasketActionsTypes {
     LOAD_BASKET = 'LOAD_BASKET',
 }
 
-export interface ProductsBasket {
-    _id: string;
-    img: string | null
-    description: string
-    value: number
-    shopsImg: string
-    titleShops: string
-    promoEnd: Date
-    promoStart: Date
-}
 
 export type BasketState = Record<string, ProductsBasket[]>
 

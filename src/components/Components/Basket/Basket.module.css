@@ -41,6 +41,18 @@
     animation-timing-function: cubic-bezier(.48, .22, .35, 1);
 }
 
+.open_basket_no_animation {
+    position: fixed;
+
+    width: 377px;
+    height: 496px;
+    background: url(./bg.svg);
+    filter: drop-shadow(var(--bold-shadow));
+
+    bottom: 45px;
+    right: 45px;
+}
+
 .open_basket {
     position: fixed;
 
@@ -150,7 +162,14 @@
     align-items: center;
     position: relative;
 }
-
+.item_no_del{
+    display: grid;
+    grid-template-columns: 35px auto auto;
+    column-gap: 5px;
+    margin: 5px 0;
+    align-items: center;
+    position: relative;
+}
 .img {
     height: 35px;
     width: 35px;
@@ -203,7 +222,6 @@
 }
 
 .button_addition {
-    background: var(--primary);
     box-shadow: var(--main-shadow);
     border-radius: 10px;
     width: 35px;

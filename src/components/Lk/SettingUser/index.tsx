@@ -47,6 +47,20 @@ const SettingUser: React.FC = () => {
     loadUserInfo();
   }, []);
 
+  const changePassword = async () => {
+    const newPassword = prompt('Введите новый пароль: ')
+
+    const data = await API.updatePasswordUser({newPassword});
+    if (!data.auth) {
+      AuthDispath({
+        type: AuthActionsTypes.LOGOUT,
+        payload: initialStateAuth,
+      });
+      navigate(`/lk/auth`);
+    }else if (data.result) {
+      alert("Пароль успешно был изменен")
+    }
+  }
   const notifyFavoritesProduct = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -85,8 +99,8 @@ const SettingUser: React.FC = () => {
                   <p>
                     Подключенная почта: <span>{Auth.login}</span>
                   </p>
-                  <p>
-                    Пароль: <button>Изменить</button>
+                  <p className={styles.titlePassword}>
+                    Пароль: **** (<button onClick={changePassword} >Изменить</button>)
                   </p>
                   <p>
                     Вы находитесь на:{" "}
